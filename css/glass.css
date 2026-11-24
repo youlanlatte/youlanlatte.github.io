@@ -68,3 +68,38 @@ button, .pill { min-height:42px; padding-inline:14px; }
 .student-list li { padding:6px 10px; border-left:3px solid var(--line); }
 .student-list .present { border-left-color:#34926a; }
 #attendance-summary { overflow-wrap:anywhere; }
+body:not(.login) {
+  min-height:100vh;
+  background-image:
+    radial-gradient(ellipse at 9% 18%, #75dbcd94 0, transparent 35%),
+    radial-gradient(ellipse at 74% 7%, #f1a6b38a 0, transparent 40%),
+    radial-gradient(ellipse at 79% 83%, #a794ec9c 0, transparent 47%),
+    linear-gradient(128deg, transparent 38%, #82aeda40 51%, transparent 68%);
+}
+.topbar {
+  top:8px; width:min(1160px,calc(100% - 24px)); margin:8px auto 0; border:1px solid var(--rim);
+  border-radius:30px; padding:6px clamp(8px,2vw,24px);
+}
+:is(.intro-card,.projects-card,.sign-in-card,.player-panel,.album-panel,.archive,.topbar) {
+  background-image: radial-gradient(ellipse at var(--shine-x,12%) var(--shine-y,0%), #ffffff36, transparent 58%),
+    linear-gradient(135deg,#ffffff2b, transparent 40%, #a4c5ef12 80%, #ffffff30);
+}
+.intro-card,.projects-card,.profile-card,.sign-in-card,.player-panel,.album-panel,.topbar {
+  box-shadow: inset 0 1.5px 1px var(--gleam), inset 1px 0 2px var(--rim), inset -2px -2px 4px #b1a9d23b,
+    0 18px 45px -18px #49466a55, 0 4px 12px -8px #343e6440;
+}
+.caller-page { width:min(1040px,calc(100% - 32px)); margin:clamp(28px,6vw,80px) auto; display:grid; grid-template-columns:1.5fr 1fr; gap:20px; align-items:start; }
+.draw-stage { text-align:center; padding-block:clamp(30px,6vw,76px); }
+.draw-stage h1 { font-size:clamp(1.5rem,4vw,2.5rem); }
+#draw-result { display:block; margin:32px 0; font-size:clamp(2.8rem,7vw,5.6rem); font-weight:700; letter-spacing:-.055em; line-height:1.2; overflow-wrap:anywhere; }
+.draw-actions { display:flex; justify-content:center; flex-wrap:wrap; gap:8px; }
+#draw { color:white; background:linear-gradient(135deg,#645491,#4d426e); }
+button:disabled { opacity:.5; cursor:default; }
+.draw-settings h2 { font-size:1.35rem; }
+.draw-settings details { margin-top:20px; border-top:1px solid var(--line); padding-top:12px; }
+.draw-settings summary { cursor:pointer; }
+#history { padding-left:1.8em; max-height:15rem; overflow:auto; overflow-wrap:anywhere; }
+#roster-form { display:grid; gap:10px; padding-top:12px; }
+#roster { width:100%; resize:vertical; font:inherit; color:inherit; background:var(--paper); border:1px solid var(--line); padding:10px; border-radius:14px; }
+@media (max-width:720px) { .caller-page { grid-template-columns:1fr; } }
+@media (max-width:420px) { .topbar { width:calc(100% - 8px); gap:3px; padding-inline:4px; } }

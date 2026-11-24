@@ -35,3 +35,12 @@ document.addEventListener('keydown', event => {
     navigation.querySelector('summary').focus();
   }
 });
+if (matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
+  document.addEventListener('pointermove', event => {
+    const surface = event.target.closest('.intro-card,.projects-card,.archive,.topbar');
+    if (!surface) return;
+    const bounds = surface.getBoundingClientRect();
+    surface.style.setProperty('--shine-x', (event.clientX - bounds.left) + 'px');
+    surface.style.setProperty('--shine-y', (event.clientY - bounds.top) + 'px');
+  }, { passive: true });
+}

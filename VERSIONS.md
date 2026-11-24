@@ -8,6 +8,10 @@
 | v2.0 | [e8b9727b](https://github.com/youlanlatte/youlanlatte.github.io/tree/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee.zip) |
 | v3.0 | [8e928fad](https://github.com/youlanlatte/youlanlatte.github.io/tree/8e928fad22cf0c0896eb066635f4a07f1c711ba4) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/8e928fad22cf0c0896eb066635f4a07f1c711ba4.zip) |
 
+## 随机点名与播放器布局
+
+点名器使用不重复抽取，支持自定义名单和本轮记录。音乐播放器移至首屏，站点导航与卡片更新为浮动玻璃样式。
+
 ## 页面重构
 
 主页、音乐、签到、欢迎页和版本档案使用同一套页面模板。签到支持批量学号、重复项去重和未识别输入反馈。

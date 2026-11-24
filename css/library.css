@@ -16,3 +16,8 @@
   .album-panel { grid-template-columns:1fr; text-align:center; }
   .album-art { width:min(100%,300px); margin:auto; }
 }
+.player-panel { margin:0 0 22px; padding:clamp(18px,4vw,42px); background-image:linear-gradient(120deg,#fbbf843d,#ee72852a 55%,transparent); }
+.player-panel h2 { font-size:clamp(1.4rem,3vw,2.1rem); }
+.album-panel { grid-template-columns:minmax(130px,220px) 1fr; }
+.album-panel h1 { font-size:clamp(2rem,5vw,4rem); }
+@media(max-width:620px) { .album-panel { grid-template-columns:1fr; } .album-art { width:min(70%,220px); } }
