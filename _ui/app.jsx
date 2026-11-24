@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
 import {GlassButton, GlassCard, GlassInput, GlassSheet, GlassSlider, GlassSwitch} from '@zakisheriff/liquid-glass';
 import '@zakisheriff/liquid-glass/styles.css';
@@ -74,9 +74,29 @@ function MediaSlider({audio, volume}) {
     return () => events.forEach(name => audio.removeEventListener(name,sync));
   },[audio,volume]);
   const ready = volume || Number.isFinite(duration) && duration > 0;
-  return <GlassSlider aria-label={volume ? '音量' : '播放进度'} value={value} min={0} max={volume ? 1 : ready ? duration : 1}
-    step={volume ? 0.01 : 0.1} disabled={!ready} tint="#ec94af"
-    onChange={next => {if (volume) audio.volume=next; else if (ready) audio.currentTime=next;setValue(next);}}/>;
+  const press = useRef(null);
+  const max = volume ? 1 : ready ? duration : 1;
+  function change(next) {
+    if (!ready) return;
+    if (volume) audio.volume = next;
+    else audio.currentTime = next;
+    setValue(next);
+  }
+  function finishTap(event) {
+    const start = press.current;
+    press.current = null;
+    if (!start || start.id !== event.pointerId || start.moved || !ready) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    const fraction = Math.max(0, Math.min(1, (event.clientX - bounds.left) / bounds.width));
+    change(fraction * max);
+  }
+  return <div
+    onPointerDownCapture={e => {if (e.isPrimary && e.button === 0) press.current = {id:e.pointerId,x:e.clientX,moved:false};}}
+    onPointerMoveCapture={e => {if (press.current && Math.abs(e.clientX-press.current.x)>3) press.current.moved=true;}}
+    onPointerCancel={() => {press.current=null;}} onPointerUp={finishTap}>
+    <GlassSlider aria-label={volume ? '音量' : '播放进度'} value={value} min={0} max={max}
+      step={volume ? 0.01 : 0.1} disabled={!ready} tint="#ec94af" onChange={change}/>
+  </div>;
 }
 
 function PlayButton({audio}) {
