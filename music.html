@@ -1,22 +1,49 @@
----
-layout: blog
-title: 音乐
-music: true
-body_class: music-library
----
-  <main id="content" tabindex="-1" class="music-page">
-    <section class="player-panel" id="player" aria-labelledby="player-title">
-      <h2 id="player-title">单曲播放器</h2>
-      <iframe title="Apple Music 单曲播放器" src="https://embed.music.apple.com/us/album/golden-hour/1631223933?i=1631223935" allow="autoplay; encrypted-media"></iframe>
-    </section>
-    <article class="album-panel">
-      <img class="album-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/0c/35/28/0c352801-dc06-3076-cf73-c4ff0fbaf686/5056167174196.jpg/600x600bb.jpg" alt="golden hour 单曲封面" width="600" height="600" style="height:auto">
-      <div>
-        <p>单曲</p>
-        <h1 lang="en">golden hour</h1>
-        <a class="artist" href="https://music.apple.com/us/artist/jvke/1439925456?uo=4">JVKE</a>
-        <p class="album-meta">国际流行 · 2022年7月15日</p>
-        <a class="pill" href="https://music.apple.com/us/song/1631223935">在 Apple Music 打开 ↗</a>
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>音乐 · 幽兰拿铁</title>
+  <link rel="stylesheet" href="music-assets/style.css">
+  <link rel="stylesheet" href="music-assets/utility.css">
+  <link rel="stylesheet" href="music-assets/player.css">
+</head>
+<body>
+  <div class="container flex justify-content">
+    <aside class="sidebar" id="library-nav">
+      <div class="sideHeader">
+        <div class="logoContainer flex">
+          <img src="music-assets/icons/logo.svg" class="logo" alt="Apple Music">
+          <button type="button" class="close" aria-label="关闭导航">×</button>
+        </div>
+        <div class="searchbar flex"><input type="search" class="searchBox" placeholder="搜索歌曲或艺人" aria-label="搜索歌曲或艺人"></div>
+        <nav class="options">
+          <a href="index.html" class="option flex align-items"><img src="music-assets/icons/home.svg" alt="">博客首页</a>
+          <a href="#songs" class="option flex align-items"><img src="music-assets/icons/browse.svg" alt="">歌曲资料库</a>
+        </nav>
       </div>
-    </article>
-  </main>
+    </aside>
+    <main class="main">
+      <header class="header flex">
+        <button type="button" class="menu-toggle" aria-label="打开导航" aria-controls="library-nav" aria-expanded="false"><img src="music-assets/icons/hamburger.svg" alt=""></button>
+        <div class="current"><strong>春日影</strong><small>MyGO!!!!!</small></div>
+        <audio id="audio" controls preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/haruhikage.mp3"></audio>
+      </header>
+      <section class="page" id="songs">
+        <h1 class="playlists">歌曲</h1>
+        <div class="cardContainer flex">
+          <button class="card" id="song" aria-label="播放春日影">
+            <span class="art"><img src="music-assets/icons/trackIcon.svg" alt=""></span>
+            <span class="cardTitle">春日影</span>
+            <span class="cardDesc">MyGO!!!!!</span>
+          </button>
+        </div>
+        <p id="no-results" hidden>没有匹配的歌曲</p>
+        <p id="status" role="status"></p>
+      </section>
+    </main>
+  </div>
+  <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
+  <script src="music-assets/player.js"></script>
+</body>
+</html>
