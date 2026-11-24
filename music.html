@@ -5,17 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>音乐 · 幽兰拿铁</title>
   <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/glass.css">
+  <link rel="stylesheet" href="css/library.css">
 </head>
-<body>
-  <header class="topbar"><a href="index.html">← 返回首页</a><span class="site-title">音乐</span><button id="themeToggle" class="topbar-right" aria-label="切换深色主题">◐</button></header>
+<body class="music-library">
+  <header class="topbar"><a class="pill" href="index.html">← 返回首页</a><span class="site-title">♫ 音乐</span><button id="themeToggle" class="topbar-right" aria-label="切换深色主题">◐</button></header>
   <main class="music-page">
-    <article class="intro-card">
-      <p>JVKE · 单曲</p>
-      <h1 lang="en">golden hour</h1>
-      <p>国际流行 · 2022年7月15日</p>
-      <iframe title="Apple Music 单曲播放器" src="https://embed.music.apple.com/us/album/golden-hour/1631223933?i=1631223935" allow="autoplay; encrypted-media"></iframe>
-      <a class="listen" href="https://music.apple.com/us/song/1631223935">在 Apple Music 收听 ↗</a>
+    <article class="album-panel">
+      <img class="album-art" src="https://is1-ssl.mzstatic.com/image/thumb/Music113/v4/0c/35/28/0c352801-dc06-3076-cf73-c4ff0fbaf686/5056167174196.jpg/600x600bb.jpg" alt="golden hour 单曲封面" width="600" height="600" style="height:auto">
+      <div>
+        <p>单曲</p>
+        <h1 lang="en">golden hour</h1>
+        <a class="artist" href="https://music.apple.com/us/artist/jvke/1439925456?uo=4">JVKE</a>
+        <p class="album-meta">国际流行 · 2022年7月15日</p>
+        <a class="listen" href="#player">▶ 试听</a>
+        <a class="pill" href="https://music.apple.com/us/song/1631223935">在 Apple Music 打开 ↗</a>
+      </div>
     </article>
+    <section class="player-panel" id="player" aria-labelledby="player-title">
+      <h2 id="player-title">曲目</h2>
+      <iframe title="Apple Music 单曲播放器" src="https://embed.music.apple.com/us/album/golden-hour/1631223933?i=1631223935" allow="autoplay; encrypted-media"></iframe>
+    </section>
   </main>
   <script src="js/theme.js"></script>
 </body>

@@ -1,0 +1,18 @@
+.music-library { --accent:#ad1340; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; }
+.music-library.dark-mode { --accent:#ff94ac; }
+.music-library .site-title,.music-library h1,.music-library h2 { font-family:inherit; }
+.music-library .site-title { color:var(--accent); }
+.music-page { margin:clamp(24px,5vw,72px) auto; max-width:1024px; }
+.album-panel { display:grid; grid-template-columns:minmax(180px, .85fr) 1.15fr; gap:clamp(24px,5vw,60px); padding:clamp(20px,4vw,48px); align-items:center; background-image:linear-gradient(125deg,#edab5d36,#dd86932e 60%,transparent); }
+.album-art { width:100%; aspect-ratio:1; display:block; border-radius:16px; background:#83603f; box-shadow:0 16px 35px #49252535; }
+.album-panel h1 { font-size:clamp(2.6rem,7vw,5.2rem); letter-spacing:-.065em; line-height:1.04; margin:.12em 0; }
+.artist { color:var(--accent); font-weight:600; font-size:1.4rem; text-decoration:none; }
+.album-meta { margin:12px 0; font-size:.93rem; }
+.player-panel { margin-top:20px; padding:clamp(18px,3vw,32px); scroll-margin-top:84px; }
+.player-panel iframe { display:block; border-radius:14px; }
+.music-page .listen { font-weight:650; }
+.music-page .pill { margin-left:4px; }
+@media(max-width:620px) {
+  .album-panel { grid-template-columns:1fr; text-align:center; }
+  .album-art { width:min(100%,300px); margin:auto; }
+}
