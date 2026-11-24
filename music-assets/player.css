@@ -4,7 +4,7 @@ a { color:inherit; text-decoration:none; }
 .options a { padding-block:8px; } .options img { width:20px; }
 .main .header { height:auto; min-height:78px; gap:18px; align-items:center; justify-content:center; padding:10px 16px; }
 .current { display:grid; min-width:80px; } small,.cardDesc { color:#bababc; }
-audio { width:min(52vw,520px); min-width:0; color-scheme:dark; }
+
 .page { height:auto; overflow:visible; }
 .cardContainer { justify-content:flex-start; }
 .card { height:auto; text-align:left; border-radius:14px; }
@@ -21,9 +21,40 @@ audio { width:min(52vw,520px); min-width:0; color-scheme:dark; }
   .menu-toggle,.close { display:inline-flex; padding:8px; align-items:center; }
   .menu-toggle img { width:24px; }
   .main .header { justify-content:flex-start; gap:10px; }
-  audio { flex:1; }
+
+}
+body {
+  min-height:100vh;
+  background:linear-gradient(115deg,#161524bd,#181724bb),url('../assets/background.jpg') center/cover fixed;
+}
+.sidebar,.main .header,.footer,.card,.current,.searchBox {
+  background-color:rgba(30,29,40,.54);
+  -webkit-backdrop-filter:blur(18px) saturate(135%);
+  backdrop-filter:blur(18px) saturate(135%);
+  border-color:rgba(255,255,255,.16);
+}
+.main { background:rgba(18,17,25,.38); }
+.main .header {
+  display:grid;
+  grid-template-columns:30% 40% 17% 13%;
+  gap:0;
+  padding:6px 0;
+}
+.transport,.level { display:flex; align-items:center; justify-content:center; gap:8px; min-width:0; }
+#play { min-width:40px; min-height:40px; font-size:22px; }
+.current { min-width:0; text-align:center; border-radius:8px; border:1px solid #ffffff26; padding:3px 8px 0; }
+.current small { font-size:11px; }
+#seek,#level { accent-color:#fba5b7; cursor:pointer; min-width:0; }
+#seek { width:100%; height:16px; }
+.level label { font-size:12px; }
+#level { width:48%; }
+.card { border:1px solid #ffffff24; }
+.card:hover { background-color:#64576585; }
+.searchBox { background-color:#201e2b70; }
+@media(max-width:1074px) {
+  .main .header { grid-template-columns:20% 60% 20%; }
 }
 @media(max-width:560px) {
-  .main .header { flex-wrap:wrap; }
-  audio { flex:1 0 100%; }
+  .main .header { grid-template-columns:25% 52% 23%; }
+  .transport { gap:0; } .level { flex-direction:column; gap:0; } #level { width:76%; }
 }

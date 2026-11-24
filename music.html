@@ -25,9 +25,19 @@
     </aside>
     <main class="main">
       <header class="header flex">
-        <button type="button" class="menu-toggle" aria-label="打开导航" aria-controls="library-nav" aria-expanded="false"><img src="music-assets/icons/hamburger.svg" alt=""></button>
-        <div class="current"><strong>春日影</strong><small>MyGO!!!!!</small></div>
-        <audio id="audio" controls preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/haruhikage.mp3"></audio>
+        <div class="transport">
+          <button type="button" class="menu-toggle" aria-label="打开导航" aria-controls="library-nav" aria-expanded="false"><img src="music-assets/icons/hamburger.svg" alt=""></button>
+          <button type="button" id="play" aria-label="播放春日影">▶</button>
+        </div>
+        <div class="current">
+          <strong>春日影</strong><small>MyGO!!!!!</small>
+          <input id="seek" type="range" min="0" max="0" value="0" step="0.1" aria-label="播放进度" disabled>
+        </div>
+        <div class="level">
+          <label for="level">音量</label>
+          <input id="level" type="range" min="0" max="1" step="0.01" value="1" aria-label="音量">
+        </div>
+        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/haruhikage.mp3"></audio>
       </header>
       <section class="page" id="songs">
         <h1 class="playlists">歌曲</h1>
