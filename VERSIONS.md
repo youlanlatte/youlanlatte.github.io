@@ -8,7 +8,11 @@
 | v2.0 | [e8b9727b](https://github.com/youlanlatte/youlanlatte.github.io/tree/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee.zip) |
 | v3.0 | [8e928fad](https://github.com/youlanlatte/youlanlatte.github.io/tree/8e928fad22cf0c0896eb066635f4a07f1c711ba4) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/8e928fad22cf0c0896eb066635f4a07f1c711ba4.zip) |
 
-## 本次更新
+## 页面重构
+
+主页、音乐、签到、欢迎页和版本档案使用同一套页面模板。签到支持批量学号、重复项去重和未识别输入反馈。
+
+## 早期界面升级
 
 界面升级提交为 `66128ad`。首页、班级签到及音乐页共用主题设置，修正了项目统计、无效导航和签到学号解析。
 

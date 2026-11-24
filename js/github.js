@@ -2,11 +2,13 @@ async function loadGithubData() {
   const list = document.querySelector('#repo-list');
   const count = document.querySelector('#repo-count');
   const stars = document.querySelector('#total-stars');
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 10000);
   try {
     const repos = [];
     let page = 1;
     while (true) {
-      const response = await fetch('https://api.github.com/users/youlanlatte/repos?sort=updated&per_page=100&page=' + page);
+      const response = await fetch('https://api.github.com/users/youlanlatte/repos?sort=updated&per_page=100&page=' + page, { signal: controller.signal });
       if (!response.ok) throw new Error('GitHub unavailable');
       const batch = await response.json();
       repos.push(...batch);
@@ -15,7 +17,6 @@ async function loadGithubData() {
     }
     count.textContent = repos.length;
     stars.textContent = repos.reduce((sum, repo) => sum + repo.stargazers_count, 0);
-    if (!list) return;
     list.textContent = repos.length ? '' : '暂无公开项目。';
     for (const repo of repos.slice(0, 5)) {
       const item = document.createElement('article');
@@ -32,11 +33,12 @@ async function loadGithubData() {
     }
   } catch {
     count.textContent = stars.textContent = '—';
-    if (!list) return;
     const link = document.createElement('a');
     link.href = 'https://github.com/youlanlatte?tab=repositories';
     link.textContent = '前往 GitHub 查看项目';
     list.replaceChildren('项目数据暂时无法加载。', link);
+  } finally {
+    clearTimeout(timeout);
   }
 }
 loadGithubData();
