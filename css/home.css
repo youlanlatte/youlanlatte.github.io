@@ -1,0 +1,36 @@
+* { box-sizing: border-box; }
+body { --paper:#faf8f4; --card:#fff; --ink:#29271f; --accent:#69518c; --line:#ddd8cf; margin:0; background:var(--paper); color:var(--ink); font:16px/1.65 "Segoe UI","Microsoft YaHei",sans-serif; }
+body.dark-mode { --paper:#19181c; --card:#242228; --ink:#f3eee5; --accent:#d4b4f2; --line:#45414a; color-scheme:dark; }
+a { color:var(--accent); } button { cursor:pointer; } input,button { font:inherit; color:inherit; }
+.topbar { position:sticky; top:0; z-index:4; display:flex; align-items:center; gap:14px; padding:10px max(4vw,16px); background:var(--card); border-bottom:1px solid var(--line); }
+.site-title,h1,h2 { font-family:Georgia,"Songti SC",SimSun,serif; }
+.site-title { font-size:1.2rem; font-weight:700; }
+.topbar-right,.bing-search { display:flex; align-items:center; gap:6px; }
+.topbar-right { margin-left:auto; }
+button,.bing-search-input { background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:5px 10px; }
+.bing-search-input { width:10rem; }
+.side-menu { position:fixed; z-index:3; top:56px; left:0; bottom:0; width:min(300px,82vw); background:var(--card); padding:24px; }
+.nav-list,.intro-card ul { padding:0; list-style:none; }
+.nav-link { display:block; padding:10px; text-decoration:none; }
+.nav-link:hover { background:var(--paper); }
+.overlay { position:fixed; inset:0; background:#17141c70; z-index:2; }
+.container { max-width:1180px; margin:clamp(24px,5vw,72px) auto; padding:0 20px; display:grid; grid-template-columns:minmax(245px, .46fr) minmax(0,1fr); gap:24px; align-items:start; }
+.profile-card,.intro-card,.projects-card { background:var(--card); border:1px solid var(--line); border-radius:18px; padding:clamp(20px,3vw,40px); scroll-margin-top:80px; }
+.profile-card { text-align:center; background:linear-gradient(transparent 75px,var(--card) 150px),url('../assets/background.jpg') center top/auto 155px no-repeat,var(--card); padding-top:68px; }
+.avatar { width:94px; height:94px; border-radius:50%; object-fit:cover; border:5px solid var(--card); }
+h1,h2,h3,p { margin:0; } h1 { font-size:2rem; } h2 { font-size:clamp(1.45rem,3vw,2rem); }
+.github-btn,.listen { display:inline-block; margin:16px 0; border-radius:8px; background:var(--accent); color:var(--card); padding:7px 18px; text-decoration:none; }
+.stats { display:flex; justify-content:space-evenly; border-block:1px solid var(--line); padding:14px 0; }
+.stat span { display:block; } .number { font-size:1.45rem; font-weight:700; }
+.skills,.contribution { margin-top:22px; } .tags { display:flex; justify-content:center; flex-wrap:wrap; gap:6px; margin-top:8px; }
+.tag { background:var(--paper); border:1px solid var(--line); border-radius:16px; font-size:.82rem; padding:2px 10px; } .chart { width:100%; }
+.right-panel { display:grid; gap:24px; min-width:0; }
+.intro-card li { margin-top:9px; } .intro-card li:first-child { font-weight:700; color:var(--accent); }
+.repo-item { border-top:1px solid var(--line); padding:14px 0; overflow-wrap:anywhere; } .repo-item a { font-weight:650; }
+.meta,.label,.tagline { font-size:.88rem; } .repo-list { margin-top:16px; }
+@media(max-width:720px) { .container { grid-template-columns:1fr; } .topbar { gap:6px; flex-wrap:wrap; } .site-title { font-size:1rem; } .bing-search-input { width:clamp(48px,15vw,90px); } .topbar button { padding:5px 7px; } }
+.search-area { display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin:16px 0; }
+#studentId { padding:8px; max-width:100%; border:1px solid var(--line); border-radius:8px; background:var(--paper); }
+.student-list { list-style:none; padding:0; display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:6px; }
+.music-page { max-width:760px; margin:6vh auto; padding:20px; }
+.music-page iframe { width:100%; height:175px; border:0; margin-top:20px; }

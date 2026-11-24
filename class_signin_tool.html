@@ -3,55 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>幽兰拿铁的博客 - 班级签到工具</title>
-  <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    /* 修复手机端输入框无法点击 */
-    #signInForm input {
-      position: relative;
-      z-index: 10;
-      touch-action: manipulation; /* 优化触控操作 */
-    }
+  <title>班级签到 · 幽兰拿铁</title>
+  <link rel="stylesheet" href="css/home.css" />
 
-    .search-area {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      margin-bottom: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .search-area {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      #statsButton {
-        width: 100%;
-      }
-    }
-  </style>
 </head>
-<body>
+<body id="home">
 
   <!-- 顶部栏 -->
   <header class="topbar glass" role="banner">
-    <button id="menuToggle" class="menu-toggle" aria-label="打开菜单">
-      <i class="fas fa-bars"></i>
+    <button id="menuToggle" class="menu-toggle" aria-label="导航菜单" aria-controls="sideMenu" aria-expanded="false">
+      ☰
     </button>
 
-    <div class="site-title">幽兰拿铁的博客 - 班级签到</div>
+    <div class="site-title">幽兰拿铁的博客</div>
 
     <div class="topbar-right">
       <form action="https://www.bing.com/search" target="_blank" method="GET" class="bing-search" id="bingForm">
-        <input type="text" name="q" placeholder="搜索 Bing..." class="bing-search-input" autocomplete="off" />
+        <input type="text" aria-label="搜索 Bing" required name="q" placeholder="搜索 Bing..." class="bing-search-input" autocomplete="off" />
         <button type="submit" class="bing-search-btn">
-          <i class="fas fa-search"></i>
+          搜索
         </button>
       </form>
-      <button id="themeToggle" class="theme-toggle">
-        <i class="fas fa-moon"></i>
+      <button aria-label="切换深色主题" id="themeToggle" class="theme-toggle">
+        ◐
       </button>
     </div>
   </header>
@@ -60,12 +34,13 @@
   <nav id="sideMenu" class="side-menu" aria-hidden="true">
     <div class="side-menu-inner">
       <ul class="nav-list">
-        <li><a href="#" class="nav-link"><i class="fas fa-home"></i> 首页</a></li>
-        <li><a href="#" class="nav-link"><i class="fas fa-pencil-alt"></i> 博客</a></li>
-        <li><a href="#" class="nav-link"><i class="fas fa-code"></i> 项目</a></li>
-        <li><a href="#" class="nav-link"><i class="fas fa-folder"></i> 网盘资源</a></li>
-        <li><a href="#" class="nav-link"><i class="fas fa-envelope"></i> 联系我</a></li>
-        <li><a href="./music.html" class="nav-link"><i class="fas fa-music"></i> 播客</a></li>
+        <li><a href="./index.html" class="nav-link">首页</a></li>
+        <li><a href="./index.html#intro" class="nav-link">个人介绍</a></li>
+        <li><a href="./index.html#projects" class="nav-link">项目</a></li>
+
+
+        <li><a href="./music.html" class="nav-link">音乐</a></li>
+        <li><a href="./class_signin_tool.html" class="nav-link">班级签到点名工具</a></li>
       </ul>
     </div>
   </nav>
@@ -78,8 +53,8 @@
         <img src="assets/avatar.jpg" alt="幽兰拿铁" class="avatar" />
         <h1>幽兰拿铁</h1>
         <p class="tagline">Python Developer</p>
-        <a href="https://github.com/Chester1210" target="_blank" class="github-btn">
-          <i class="fab fa-github"></i> 访问我的 GitHub
+        <a href="https://github.com/youlanlatte" target="_blank" class="github-btn">
+          访问我的 GitHub
         </a>
         <div class="stats">
           <div class="stat">
@@ -92,19 +67,19 @@
           </div>
         </div>
         <div class="skills">
-          <h3><i class="fas fa-cogs"></i> 技术栈</h3>
+          <h3>技术栈</h3>
           <div class="tags">
-            <span class="tag"><i class="fab fa-html5"></i> HTML/CSS</span>
-            <span class="tag"><i class="fab fa-python"></i> Python</span>
-            <span class="tag"><i class="fab fa-js"></i> JavaScript</span>
-            <span class="tag"><i class="fas fa-terminal"></i> Shell</span>
-            <span class="tag"><i class="fab fa-java"></i> Java</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">Python</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Shell</span>
+            <span class="tag">Java</span>
           </div>
         </div>
         <div class="contribution">
-          <h3><i class="fas fa-chart-bar"></i> GitHub 活跃度</h3>
+          <h3>GitHub 活跃度</h3>
           <img id="contribution-chart"
-           src="https://github-readme-activity-graph.vercel.app/graph?username=Chester1210&bg_color=ffffff00&color=777&line=3b82f6&point=3b82f6&area=true&hide_border=true"
+           src="https://github-readme-activity-graph.vercel.app/graph?username=youlanlatte&bg_color=ffffff00&color=777&line=3b82f6&point=3b82f6&area=true&hide_border=true"
            alt="Contribution Graph"
            class="chart" />
         </div>
@@ -125,7 +100,7 @@
               </div>
             </form>
 
-            <button id="statsButton" class="stats-btn">
+            <button form="signInForm" type="submit" id="statsButton" class="stats-btn">
               <i class="fas fa-chart-bar"></i> 统计
             </button>
           </div>
@@ -192,14 +167,14 @@
   let attendance = new Array(students.length).fill(false);
 
   const studentList = document.getElementById('studentList');
-  const statsButton = document.getElementById('statsButton');
+
   const studentIdInput = document.getElementById('studentId');
 
   function renderList() {
     studentList.innerHTML = '';
     students.forEach((student, index) => {
       const li = document.createElement('li');
-      li.innerHTML = `${student.id}. ${student.name} (${student.gender})`;
+      li.textContent = `${student.id}. ${student.name} (${student.gender})`;
 
       if (attendance[index]) {
         li.style.color = "#008000"; // 深绿 已到
@@ -207,20 +182,22 @@
         li.style.color = "#ff0000"; // 红 未到
       }
 
+      li.append(attendance[index] ? " · 已到" : " · 未到");
       studentList.appendChild(li);
     });
   }
 
-  statsButton.addEventListener('click', () => {
+  document.querySelector('#signInForm').addEventListener('submit', event => {
+    event.preventDefault();
     const inputStr = studentIdInput.value.trim();
     attendance.fill(false);
 
     if (inputStr !== "") {
       const ids = inputStr.split(/\s+/);
       ids.forEach(numStr => {
-        const id = parseInt(numStr);
+        const id = /^\d+$/.test(numStr) ? Number(numStr) : NaN;
         if (id >= 1 && id <= students.length) {
-          attendance[id - 1] = true; 
+          attendance[id - 1] = true;
         }
       });
     }
@@ -239,25 +216,7 @@
   renderList();
 })();
 
-const menuToggle = document.getElementById('menuToggle');
-const sideMenu = document.getElementById('sideMenu');
-const overlay = document.getElementById('overlay');
-
-menuToggle.addEventListener('click', () => {
-  sideMenu.classList.toggle('open');
-  overlay.classList.toggle('show');
-  sideMenu.setAttribute(
-    'aria-hidden',
-    !sideMenu.classList.contains('open')
-  );
-});
-
-overlay.addEventListener('click', () => {
-  sideMenu.classList.remove('open');
-  overlay.classList.remove('show');
-  sideMenu.setAttribute('aria-hidden', 'true');
-});
 </script>
-
-</body>
-</html>
+<script src="js/theme.js"></script>
+  <script src="js/home.js"></script>
+</body></html>
