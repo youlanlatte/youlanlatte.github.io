@@ -1,5 +1,4 @@
 const audio = document.querySelector('audio');
-const song = document.querySelector('#song');
 const status = document.querySelector('#status');
 const backup = audio.querySelector('source[type="audio/mpeg"]').src;
 let usingBackup = false;
@@ -36,26 +35,22 @@ async function togglePlayback() {
   status.textContent = '正在加载春日影…';
   await tryPlayback();
 }
-song.onclick = togglePlayback;
-function syncPlayback() {
-  const label = audio.paused ? '播放春日影' : '暂停春日影';
-  song.setAttribute('aria-label', label);
-}
-audio.onplaying = () => { status.textContent = ''; syncPlayback(); };
-audio.onpause = syncPlayback;
+document.addEventListener('toggle-playback', togglePlayback);
+audio.onplaying = () => { status.textContent = ''; };
 audio.onerror = recoverAudio;
-audio.onended = () => { wantsPlayback = false; syncPlayback(); };
+audio.onended = () => { wantsPlayback = false; };
 const sidebar = document.querySelector('.sidebar');
-const toggle = document.querySelector('.menu-toggle');
 function menu(open) {
   sidebar.classList.toggle('open', open);
-  toggle.setAttribute('aria-expanded', String(open));
+  const toggle = document.querySelector('[data-glass-ui="open-menu"] button');
+  toggle?.setAttribute('aria-expanded', String(open));
   if (open) sidebar.querySelector('input')?.focus();
-  else toggle.focus();
+  else toggle?.focus();
 }
-toggle.onclick = () => menu(true);
-document.querySelector('.close').onclick = () => menu(false);
-sidebar.querySelector('a[href="#songs"]').onclick = () => { if (sidebar.classList.contains('open')) menu(false); };
+document.addEventListener('music-menu', event => menu(event.detail));
+sidebar.addEventListener('click', event => {
+  if (event.target.closest('a[href="#songs"]') && sidebar.classList.contains('open')) menu(false);
+});
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && sidebar.classList.contains('open')) menu(false);
 });

@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {createRoot} from 'react-dom/client';
-import {GlassButton, GlassCard, GlassInput, GlassSheet, GlassSlider, GlassSwitch} from '@zakisheriff/liquid-glass';
+import {GlassButton, GlassCard, GlassInput, GlassMenu, GlassSheet, GlassSlider, GlassSwitch} from '@zakisheriff/liquid-glass';
 import '@zakisheriff/liquid-glass/styles.css';
 import './layout.css';
 
@@ -54,7 +54,7 @@ function Caller() {
     <GlassSheet open={open} onClose={() => setOpen(false)} aria-label="编辑名单">
       <form id="roster-form" onSubmit={apply}>
         <label htmlFor="roster">每行一位，同名可加学号区分。名单仅在本页使用。</label>
-        <textarea id="roster" rows="7" required value={draft} onChange={e => setDraft(e.target.value)}/>
+        <GlassCard padding="0" radius="16px" className="roster-surface"><textarea id="roster" rows="7" required value={draft} onChange={e => setDraft(e.target.value)}/></GlassCard>
         <GlassButton type="submit" variant="filled">应用名单并开始新一轮</GlassButton>
         <p role="status">{message}</p>
       </form>
@@ -99,7 +99,7 @@ function MediaSlider({audio, volume}) {
   </div>;
 }
 
-function PlayButton({audio}) {
+function PlayButton({audio, tile=false}) {
   const [paused,setPaused] = useState(audio.paused);
   useEffect(() => {
     const sync = () => setPaused(audio.paused);
@@ -107,7 +107,14 @@ function PlayButton({audio}) {
     events.forEach(name => audio.addEventListener(name,sync));
     return () => events.forEach(name => audio.removeEventListener(name,sync));
   },[audio]);
-  return <GlassButton size="sm" aria-label={paused ? '播放春日影' : '暂停春日影'} icon={paused ? '▶' : 'Ⅱ'} onClick={() => document.querySelector('#song').click()}/>;
+  const toggle = () => document.dispatchEvent(new Event('toggle-playback'));
+  const label = paused ? '播放春日影' : '暂停春日影';
+  if (tile) return <GlassButton className="song-tile" aria-label={label} onClick={toggle}>
+    <span className="art"><img src="music-assets/icons/trackIcon.svg" alt=""/></span>
+    <strong className="cardTitle">春日影</strong><span className="cardDesc">MyGO!!!!!</span>
+  </GlassButton>;
+  return <GlassButton size="sm" aria-label={label} icon={paused ? '▶' : 'Ⅱ'} onClick={toggle}/>;
+
 }
 
 function LibrarySearch() {
@@ -120,10 +127,42 @@ function LibrarySearch() {
   return <GlassInput type="search" aria-label="搜索歌曲或艺人" placeholder="搜索歌曲或艺人" value={query} onChange={e => setQuery(e.target.value)}/>;
 }
 
+// Enhance the links emitted by Jekyll and the asynchronous project list.
+function mountLinks(container) {
+  for (const link of container.querySelectorAll('a[href]')) {
+    if (link.closest('[data-glass-ui], [data-glass-link]')) continue;
+    const host = document.createElement('span');
+    host.dataset.glassLink = '';
+    const icon = link.querySelector('img');
+    const variant = link.matches('.github-btn') ? 'tinted-filled' : 'clear';
+    link.replaceWith(host);
+    createRoot(host).render(<GlassButton href={link.getAttribute('href')} target={link.target || undefined}
+      rel={link.rel || undefined} id={link.id || undefined} className={link.className}
+      size="sm" variant={variant} icon={icon && <img src={icon.src} alt=""/>}>
+      {link.textContent.trim()}
+    </GlassButton>);
+  }
+}
+mountLinks(document);
+document.addEventListener('links-ready', event => mountLinks(event.target));
+
 for (const element of document.querySelectorAll('[data-glass-ui]')) {
   const audio = document.querySelector('audio');
   const type = element.dataset.glassUi;
   const root = createRoot(element);
+  if (type === 'navigation') {
+    const items = Array.from(element.querySelectorAll('nav a'), a => ({
+      label:a.textContent, onSelect:() => window.location.assign(a.href)
+    }));
+    root.render(<GlassMenu aria-label="导航菜单" icon="☰" size="sm" align="start" items={items}/>);
+  }
+  if (type === 'open-menu' || type === 'close-menu') {
+    const open = type === 'open-menu';
+    root.render(<GlassButton size="sm" icon={open ? '☰' : '×'} aria-label={open ? '打开导航' : '关闭导航'}
+      aria-controls="library-nav" aria-expanded={open ? false : undefined}
+      onClick={() => document.dispatchEvent(new CustomEvent('music-menu',{detail:open}))}/>);
+  }
+  if (type === 'song') root.render(<PlayButton audio={audio} tile/>);
   if (type === 'header') root.render(<HeaderTools/>);
   if (type === 'play') root.render(<PlayButton audio={audio}/>);
   if (type === 'music-search') root.render(<LibrarySearch/>);

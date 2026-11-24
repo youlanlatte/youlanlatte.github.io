@@ -39,6 +39,7 @@ async function loadGithubData() {
     list.replaceChildren('项目数据暂时无法加载。', link);
   } finally {
     clearTimeout(timeout);
+    list.dispatchEvent(new CustomEvent("links-ready", {bubbles:true}));
   }
 }
 loadGithubData();

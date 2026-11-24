@@ -11,3 +11,15 @@
 }
 [data-glass-ui="music-search"] { padding:0 8px; }
 [data-glass-ui="music-search"] > * { width:100%; min-width:0; }
+/* Use the operating system's UI face for text, form fields and library portals. */
+html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
+.roster-surface #roster { display:block; min-width:0; background:transparent; border:0; }
+.menu-slot,.close-slot { display:none; }
+@media(max-width:1074px) { .menu-slot,.close-slot { display:inline-flex; } }
+.music-view .song-tile { display:block; width:200px; height:auto; padding:12px; border-radius:20px; text-align:left; }
+.music-view .song-tile .lg-button__label,.music-view .song-tile .lg-btn__label { display:block; width:100%; }
+.music-view #song[hidden] { display:none; }
+.music-view .options [data-glass-link] { display:block; margin-block:6px; }
+[data-glass-link] > a { max-width:100%; }
+.archive td a,.repo-item a { white-space:normal; overflow-wrap:anywhere; }
+.topbar .site-title { padding-inline:8px; }

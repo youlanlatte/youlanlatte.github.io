@@ -17,7 +17,7 @@
       <div class="sideHeader">
         <div class="logoContainer flex">
           <img src="music-assets/icons/logo.svg" class="logo" alt="Apple Music">
-          <button type="button" class="close" aria-label="关闭导航">×</button>
+          <span class="close-slot" data-glass-ui="close-menu"></span>
         </div>
         <div class="searchbar flex" data-glass-ui="music-search"></div>
         <nav class="options">
@@ -29,7 +29,7 @@
     <main class="main">
       <header class="header flex">
         <div class="transport">
-          <button type="button" class="menu-toggle" aria-label="打开导航" aria-controls="library-nav" aria-expanded="false"><img src="music-assets/icons/hamburger.svg" alt=""></button>
+          <span class="menu-slot" data-glass-ui="open-menu"></span>
           <span data-glass-ui="play"></span>
         </div>
         <div class="current">
@@ -48,11 +48,7 @@
       <section class="page" id="songs">
         <h1 class="playlists">歌曲</h1>
         <div class="cardContainer flex">
-          <button class="card" id="song" aria-label="播放春日影">
-            <span class="art"><img src="music-assets/icons/trackIcon.svg" alt=""></span>
-            <span class="cardTitle">春日影</span>
-            <span class="cardDesc">MyGO!!!!!</span>
-          </button>
+          <div id="song" data-glass-ui="song"></div>
         </div>
         <p id="no-results" hidden>没有匹配的歌曲</p>
         <p id="status" role="status"></p>
@@ -61,6 +57,6 @@
     </main>
   </div>
   <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
-  <script src="music-assets/player.js?v=3"></script>
+  <script src="music-assets/player.js?v=4"></script>
 </body>
 </html>

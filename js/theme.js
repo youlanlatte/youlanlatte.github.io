@@ -24,16 +24,6 @@ window.addEventListener('storage', event => {
     renderTheme();
   }
 });
-const navigation = document.querySelector('.site-menu');
-document.addEventListener('click', event => {
-  if (!navigation.contains(event.target) || event.target.closest('nav a')) navigation.open = false;
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && navigation.open) {
-    navigation.open = false;
-    navigation.querySelector('summary').focus();
-  }
-});
 if (matchMedia('(hover: hover) and (prefers-reduced-motion: no-preference)').matches) {
   document.addEventListener('pointermove', event => {
     const surface = event.target.closest('.intro-card,.projects-card,.archive,.topbar');
