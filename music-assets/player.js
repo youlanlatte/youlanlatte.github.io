@@ -19,10 +19,40 @@ audio.addEventListener('timeupdate', refreshPosition);
 seek.oninput = () => { if (!seek.disabled) audio.currentTime = Number(seek.value); };
 level.oninput = () => { audio.volume = Number(level.value); };
 audio.onvolumechange = () => { level.value = audio.volume; };
+const backup = audio.querySelector('source[type="audio/mpeg"]').src;
+let usingBackup = false;
+let wantsPlayback = false;
+
+async function tryPlayback() {
+  try {
+    await audio.play();
+  } catch (error) {
+    if (error.name === 'AbortError') return;
+    if (error.name === 'NotSupportedError' && !usingBackup) {
+      recoverAudio();
+      return;
+    }
+    wantsPlayback = false;
+    status.textContent = '请再次点播放，或使用下方的直接播放入口。';
+  }
+}
+function recoverAudio() {
+  if (!usingBackup) {
+    usingBackup = true;
+    audio.src = backup;
+    audio.load();
+    if (wantsPlayback) tryPlayback();
+  } else {
+    wantsPlayback = false;
+    status.textContent = '音频加载失败，可重新点播放或直接打开音频。';
+  }
+}
 async function togglePlayback() {
-  if (!audio.paused) { audio.pause(); return; }
-  try { await audio.play(); }
-  catch { status.textContent = '播放失败，请使用顶部播放器重试。'; }
+  if (!audio.paused) { wantsPlayback = false; audio.pause(); return; }
+  wantsPlayback = true;
+  if (audio.error) audio.load();
+  status.textContent = '正在加载春日影…';
+  await tryPlayback();
 }
 song.onclick = togglePlayback;
 play.onclick = togglePlayback;
@@ -34,7 +64,8 @@ function syncPlayback() {
 }
 audio.onplaying = () => { status.textContent = ''; syncPlayback(); };
 audio.onpause = syncPlayback;
-audio.onerror = () => { status.textContent = '音频加载失败，请刷新页面重试。'; };
+audio.onerror = recoverAudio;
+audio.onended = () => { wantsPlayback = false; syncPlayback(); };
 const search = document.querySelector('.searchBox');
 search.oninput = () => {
   song.hidden = !'春日影 mygo!!!!!'.includes(search.value.trim().toLowerCase());

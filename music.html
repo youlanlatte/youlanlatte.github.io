@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="music-assets/style.css">
   <link rel="stylesheet" href="music-assets/utility.css">
   <link rel="stylesheet" href="music-assets/player.css">
+  <link rel="stylesheet" href="css/lens.css">
 </head>
-<body>
+<body class="music-view">
   <div class="container flex justify-content">
     <aside class="sidebar" id="library-nav">
       <div class="sideHeader">
@@ -37,7 +38,10 @@
           <label for="level">音量</label>
           <input id="level" type="range" min="0" max="1" step="0.01" value="1" aria-label="音量">
         </div>
-        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/haruhikage.mp3"></audio>
+        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" >
+          <source src="music-assets/haruhikage.m4a" type="audio/mp4">
+          <source src="music-assets/haruhikage.mp3" type="audio/mpeg">
+        </audio>
       </header>
       <section class="page" id="songs">
         <h1 class="playlists">歌曲</h1>
@@ -50,10 +54,11 @@
         </div>
         <p id="no-results" hidden>没有匹配的歌曲</p>
         <p id="status" role="status"></p>
+        <a class="direct-play" href="music-assets/haruhikage.mp3">用浏览器直接播放 ↗</a>
       </section>
     </main>
   </div>
   <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
-  <script src="music-assets/player.js"></script>
+  <script src="music-assets/player.js?v=2"></script>
 </body>
 </html>

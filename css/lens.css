@@ -1,0 +1,42 @@
+/* Shared lens treatment over the blog's own landscape. */
+body:not(.login) {
+  --edge-light:rgba(255,255,255,.78);
+  --edge-shade:rgba(52,43,91,.20);
+  --lens:rgba(255,253,255,.71);
+  --control:rgba(255,255,255,.57);
+  background:linear-gradient(120deg,#f0eff5ce,#efe4f1ad 56%,#d5edee9c),
+    url('../assets/glass-landscape.jpg') center/cover fixed;
+}
+body.dark-mode, body.music-view {
+  --edge-light:rgba(255,255,255,.40);
+  --edge-shade:rgba(2,6,16,.45);
+  --lens:rgba(32,30,43,.64);
+  --control:rgba(68,66,81,.62);
+  background:linear-gradient(110deg,#141625bf,#26203190 63%,#19353ca6),
+    url('../assets/glass-landscape.jpg') center/cover fixed;
+}
+:is(.topbar,.intro-card,.projects-card,.profile-card,.sign-in-card,.site-menu nav),
+.music-view :is(.sidebar,.main .header,.current,.card,.footer) {
+  background-color:var(--lens);
+  border:1px solid var(--edge-light);
+  backdrop-filter:blur(13px) saturate(155%);
+  -webkit-backdrop-filter:blur(13px) saturate(155%);
+  box-shadow:inset 1px 2px 2px #fff6,inset -2px -2px 3px var(--edge-shade),
+    inset 0 0 8px #dad9ff26,0 12px 28px -18px #18132799;
+}
+.topbar button,.site-menu summary,.bing-search-input,.music-view :is(#play,.searchBox) {
+  border:1px solid var(--edge-light);
+  background:linear-gradient(150deg,#ffffff28,transparent 46%),var(--control);
+  border-radius:999px;
+  box-shadow:inset 0 1px 2px #ffffff50,0 3px 8px #15142718;
+}
+.music-view .main { background:transparent; }
+.music-view .main .header { border-radius:0 0 20px 20px; }
+.music-view .current { border-radius:14px; }
+.music-view .card { border-radius:20px; padding:12px; }
+.music-view .direct-play { display:inline-block; margin-top:18px; color:#fff; text-decoration:underline; text-underline-offset:4px; }
+.music-view .level input,.music-view #seek { accent-color:#ffc3d6; }
+@media(prefers-reduced-transparency:reduce) {
+  body:not(.login) { --lens:#faf8fc; --control:#f6f2f8; }
+  body.dark-mode,body.music-view { --lens:#24212e; --control:#403846; }
+}
