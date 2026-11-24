@@ -1,0 +1,1 @@
+{"name":"youlanlatte-blog-ui","private":true,"scripts":{"build":"esbuild _ui/app.jsx --bundle --minify --outdir=assets/ui --entry-names=glass"},"dependencies":{"@zakisheriff/liquid-glass":"^4.0.3","react":"^19.3.1","react-dom":"^19.3.1"},"devDependencies":{"esbuild":"^0.28.2"}}

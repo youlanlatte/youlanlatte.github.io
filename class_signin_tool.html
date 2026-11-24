@@ -2,29 +2,4 @@
 layout: blog
 title: 随机点名
 ---
-<main id="content" tabindex="-1" class="caller-page">
-  <section class="draw-stage intro-card">
-    <h1>随机点名</h1>
-    <p id="remaining"></p>
-    <output id="draw-result" aria-live="polite">准备抽取</output>
-    <div class="draw-actions">
-      <button type="button" id="draw">随机抽取</button>
-      <button type="button" id="restart" disabled>开始新一轮</button>
-    </div>
-  </section>
-  <aside class="draw-settings projects-card">
-    <h2>本轮记录</h2>
-    <p id="empty-history">还没有抽取记录</p>
-    <ol id="history"></ol>
-    <details>
-      <summary>编辑名单</summary>
-      <form id="roster-form">
-        <label for="roster">每行一位，同名可加学号区分。名单仅在本页使用。</label>
-        <textarea id="roster" rows="7" required></textarea>
-        <button>应用名单并开始新一轮</button>
-        <p id="roster-message" role="status"></p>
-      </form>
-    </details>
-  </aside>
-</main>
-<script src="js/caller.js"></script>
+<main id="content" tabindex="-1" class="caller-page" data-glass-ui="caller"><h1>随机点名</h1></main>

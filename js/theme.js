@@ -1,4 +1,3 @@
-const themeButton = document.querySelector('#themeToggle');
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
 let preference = null;
 try {
@@ -9,15 +8,15 @@ try {
 function renderTheme() {
   const dark = preference === null ? systemTheme.matches : preference === 'true';
   document.body.classList.toggle('dark-mode', dark);
-  themeButton.setAttribute('aria-pressed', String(dark));
+  document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+  document.dispatchEvent(new Event('blog-theme'));
 }
 renderTheme();
-themeButton.hidden = false;
-themeButton.onclick = () => {
-  preference = String(!document.body.classList.contains('dark-mode'));
+document.addEventListener('choose-theme', event => {
+  preference = String(event.detail);
   renderTheme();
   try { localStorage.setItem('darkMode', preference); } catch { /* Keep this tab's choice. */ }
-};
+});
 systemTheme.addEventListener('change', renderTheme);
 window.addEventListener('storage', event => {
   if (event.key === 'darkMode' || event.key === null) {

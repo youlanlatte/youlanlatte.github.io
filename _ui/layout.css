@@ -1,0 +1,13 @@
+.topbar-right .bing-search > :first-child { width:clamp(78px,16vw,180px); min-width:0; }
+.topbar-right .bing-search { min-width:0; }
+[data-glass-ui="seek"],[data-glass-ui="volume"] { min-width:0; width:100%; }
+.level [data-glass-ui="volume"] { width:54%; }
+[data-glass-ui="seek"] > *,[data-glass-ui="volume"] > * { width:100%; min-width:0; }
+.topbar-right button { min-width:0; }
+@media(max-width:540px) {
+  .topbar { flex-wrap:wrap; }
+  .topbar-right { flex-wrap:wrap; }
+  .level [data-glass-ui="volume"] { width:85%; }
+}
+[data-glass-ui="music-search"] { padding:0 8px; }
+[data-glass-ui="music-search"] > * { width:100%; min-width:0; }
