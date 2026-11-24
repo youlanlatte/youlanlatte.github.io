@@ -1,15 +1,4 @@
-<!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{{ page.title | default: site.title | escape }}</title>
-  <link rel="stylesheet" href="{{ '/css/home.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/css/glass.css' | relative_url }}">
-</head>
-<body>
-  <header class="topbar"><a class="pill" href="{{ '/' | relative_url }}">← 返回首页</a><span class="site-title">幽兰拿铁的博客</span><button class="topbar-right" id="themeToggle" aria-label="切换深色主题">◐</button></header>
-  <main class="archive intro-card">{{ content }}</main>
-  <script src="{{ '/js/theme.js' | relative_url }}"></script>
-</body>
-</html>
+---
+layout: blog
+---
+<main id="content" tabindex="-1" class="archive intro-card">{{ content }}</main>

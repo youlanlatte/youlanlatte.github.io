@@ -1,53 +1,7 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>幽兰拿铁的博客</title>
-  <link rel="stylesheet" href="css/home.css" />
-
-  <link rel="stylesheet" href="css/glass.css">
-</head>
-<body id="home">
-
-  <!-- 顶部栏 -->
-  <header class="topbar glass" role="banner">
-    <button id="menuToggle" class="menu-toggle" aria-label="导航菜单" aria-controls="sideMenu" aria-expanded="false">
-      ☰
-    </button>
-
-    <div class="site-title">幽兰拿铁的博客</div>
-
-    <div class="topbar-right">
-      <form action="https://www.bing.com/search" target="_blank" method="GET" class="bing-search" id="bingForm">
-        <input type="text" aria-label="搜索 Bing" required name="q" placeholder="搜索 Bing..." class="bing-search-input" autocomplete="off" />
-        <button type="submit" class="bing-search-btn">
-          搜索
-        </button>
-      </form>
-      <button aria-label="切换深色主题" id="themeToggle" class="theme-toggle">
-        ◐
-      </button>
-    </div>
-  </header>
-
-  <!-- 左侧菜单 -->
-  <nav id="sideMenu" class="side-menu" aria-hidden="true">
-    <div class="side-menu-inner">
-      <ul class="nav-list">
-        <li><a href="#home" class="nav-link">首页</a></li>
-        <li><a href="#intro" class="nav-link">个人介绍</a></li>
-        <li><a href="#projects" class="nav-link">项目</a></li>
-
-
-        <li><a href="./music.html" class="nav-link">音乐</a></li>
-        <li><a href="./class_signin_tool.html" class="nav-link">班级签到点名工具</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <div id="overlay" class="overlay"></div>
-
+---
+layout: blog
+title: 个人主页
+---
   <div class="container">
     <aside class="left-panel">
       <div class="profile-card glass">
@@ -79,15 +33,12 @@
         </div>
         <div class="contribution">
           <h3>GitHub 活跃度</h3>
-          <img id="contribution-chart"
-           src="https://github-readme-activity-graph.vercel.app/graph?username=youlanlatte&bg_color=ffffff00&color=777&line=3b82f6&point=3b82f6&area=true&hide_border=true"
-           alt="Contribution Graph"
-           class="chart" />
+          <a href="https://github.com/youlanlatte?tab=overview">查看贡献记录 ↗</a>
         </div>
       </div>
     </aside>
 
-    <main class="right-panel">
+    <main id="content" tabindex="-1" class="right-panel">
       <div id="intro" class="intro-card glass">
         <h2>个人介绍</h2>
         <ul>
@@ -112,7 +63,3 @@
   </div>
 
   <script src="js/github.js"></script>
-  <script src="js/theme.js"></script>
-  <script src="js/home.js"></script>
-</body>
-</html>

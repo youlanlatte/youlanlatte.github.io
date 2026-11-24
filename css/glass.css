@@ -55,3 +55,16 @@ button, .pill { min-height:42px; padding-inline:14px; }
 .archive { max-width:1040px; margin:32px auto; overflow-x:auto; }
 .archive table { border-collapse:collapse; margin:16px 0; }
 .archive th,.archive td { padding:8px 12px; border-bottom:1px solid var(--line); text-align:left; }
+.site-title { color:inherit; text-decoration:none; }
+.site-menu { position:relative; }
+.site-menu summary { cursor:pointer; list-style:none; padding:6px 12px; border:1px solid var(--line); border-radius:999px; background:var(--paper); }
+.site-menu summary::-webkit-details-marker { display:none; }
+.site-menu nav { position:absolute; top:calc(100% + 10px); left:0; width:14rem; padding:8px; background:var(--card); border:1px solid var(--line); box-shadow:0 12px 36px var(--shade); border-radius:18px; }
+.site-menu nav a { display:block; padding:8px 16px; color:var(--ink); text-decoration:none; border-radius:12px; }
+.site-menu nav a:hover { background:var(--paper); }
+.skip-link { position:fixed; left:12px; top:-200px; z-index:8; background:var(--card); padding:8px; }
+.skip-link:focus { top:8px; }
+.tool-page { max-width:960px; margin:clamp(22px,5vw,72px) auto; }
+.student-list li { padding:6px 10px; border-left:3px solid var(--line); }
+.student-list .present { border-left-color:#34926a; }
+#attendance-summary { overflow-wrap:anywhere; }
