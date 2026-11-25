@@ -58,3 +58,12 @@ body {
   .main .header { grid-template-columns:25% 52% 23%; }
   .transport { gap:0; } .level { flex-direction:column; gap:0; } #level { width:76%; }
 }
+.music-view .current { grid-template-columns:auto minmax(0,1fr); column-gap:8px; align-items:center; }
+.current .mini-art { grid-column:1; grid-row:1 / 4; width:clamp(28px,3.5vw,44px); height:auto; aspect-ratio:1; object-fit:cover; border-radius:7px; }
+.current > :not(.mini-art) { grid-column:2; }
+.music-view #lyrics { height:clamp(225px,48vh,500px); padding-inline:4px; scrollbar-width:thin; scrollbar-color:#ffffff4a transparent; }
+.music-view #lyrics p { margin:4px 0; border-inline-start:3px solid transparent; padding:10px 12px; border-radius:8px; color:#d3ced7; line-height:1.6; transition:background-color .2s,color .2s; }
+.music-view #lyrics p span { display:block; overflow-wrap:anywhere; }
+.music-view #lyrics p span + span { font-size:.88em; font-weight:450; opacity:.84; }
+.music-view #lyrics p.active { border-color:#ffb7cc; background:#ffffff19; color:white; font-weight:700; }
+@media(prefers-reduced-motion:reduce) { .music-view #lyrics p { transition:none; } }

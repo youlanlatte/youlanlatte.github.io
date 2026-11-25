@@ -13,6 +13,22 @@ const lyrics = document.querySelector('#lyrics');
 let cues = [];
 let activeLine = -1;
 let selection = 0;
+let resumeScroll;
+function centerLine() {
+  const line = lyrics.children[activeLine];
+  if (!line) return;
+  lyrics.scrollTo({top:line.offsetTop-(lyrics.clientHeight-line.offsetHeight)/2,
+    behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+}
+function browseLyrics() {
+  clearTimeout(resumeScroll);
+  resumeScroll = setTimeout(() => { resumeScroll = null; centerLine(); }, 4000);
+}
+lyrics.addEventListener('wheel', browseLyrics, {passive:true});
+lyrics.addEventListener('touchmove', browseLyrics, {passive:true});
+lyrics.addEventListener('keydown', event => {
+  if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(event.key)) browseLyrics();
+});
 function parseLyrics(text) {
   const groups = new Map();
   const offset = Number(text.match(/\[offset:([+-]?\d+)\]/i)?.[1] || 0) / 1000;
@@ -30,18 +46,25 @@ function parseLyrics(text) {
 }
 async function loadLyrics(track) {
   const request = ++selection;
+  clearTimeout(resumeScroll);
+  resumeScroll = null;
+  lyrics.scrollTop = 0;
   cues = [];
   activeLine = -1;
   lyrics.textContent = '加载歌词…';
   try {
-    const response = await fetch('music-assets/lyrics/'+track+'.lrc');
+    const response = await fetch('music-assets/lyrics/'+track+'.lrc?v=7');
     if (!response.ok) throw new Error();
     const lines = parseLyrics(await response.text());
     if (request !== selection) return;
     cues = lines;
     lyrics.replaceChildren(...lines.map(([,text]) => {
       const node = document.createElement('p');
-      node.textContent = text;
+      for (const part of text.split('\n')) {
+        const row = document.createElement('span');
+        row.textContent = part;
+        node.append(row);
+      }
       return node;
     }));
     syncLyrics();
@@ -55,8 +78,7 @@ function syncLyrics() {
   const line = lyrics.children[index];
   if (line) {
     line.classList.add('active');
-    lyrics.scrollTo({top:line.offsetTop-(lyrics.clientHeight-line.offsetHeight)/2,
-      behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
+    if (!resumeScroll) centerLine();
   } else lyrics.scrollTop = 0;
 }
 audio.addEventListener('timeupdate',syncLyrics);
@@ -69,6 +91,7 @@ document.addEventListener('toggle-playback', event => {
     audio.pause();
     audio.dataset.track = track;
     audio.setAttribute('aria-label',tile.dataset.title+' · '+tile.dataset.artist);
+    document.querySelector('.mini-art').src = 'music-assets/'+track+'.jpg';
     document.querySelector('.current strong').textContent = tile.dataset.title;
     document.querySelector('.current small').textContent = tile.dataset.artist;
     const mp3 = 'music-assets/audio/'+track+'.mp3';
