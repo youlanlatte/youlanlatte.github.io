@@ -99,19 +99,20 @@ function MediaSlider({audio, volume}) {
   </div>;
 }
 
-function PlayButton({audio, tile=false}) {
+function PlayButton({audio, track}) {
+  const [current,setCurrent] = useState(audio.dataset.track || 'haruhikage');
   const [paused,setPaused] = useState(audio.paused);
   useEffect(() => {
-    const sync = () => setPaused(audio.paused);
-    const events = ['play','pause','ended','emptied'];
+    const sync = () => {setPaused(audio.paused); setCurrent(audio.dataset.track || 'haruhikage');};
+    const events = ['play','pause','ended','emptied','trackchange'];
     events.forEach(name => audio.addEventListener(name,sync));
     return () => events.forEach(name => audio.removeEventListener(name,sync));
   },[audio]);
-  const toggle = () => document.dispatchEvent(new Event('toggle-playback'));
-  const label = paused ? '播放春日影' : '暂停春日影';
-  if (tile) return <GlassButton className="song-tile" aria-label={label} onClick={toggle}>
-    <span className="art"><img src="music-assets/icons/trackIcon.svg" alt=""/></span>
-    <strong className="cardTitle">春日影</strong><span className="cardDesc">MyGO!!!!!</span>
+  const toggle = () => document.dispatchEvent(new CustomEvent('toggle-playback',{detail:track?.track}));
+  const label = (paused || (track && track.track !== current) ? '播放' : '暂停') + (track?.title || audio.getAttribute('aria-label').split(' · ')[0]);
+  if (track) return <GlassButton className="song-tile" aria-label={label} onClick={toggle}>
+    <span className="art"><img src={`music-assets/${track.track}.jpg`} alt=""/></span>
+    <strong className="cardTitle">{track.title}</strong><span className="cardDesc">{track.artist}</span>
   </GlassButton>;
   return <GlassButton size="sm" aria-label={label} icon={paused ? '▶' : 'Ⅱ'} onClick={toggle}/>;
 
@@ -120,9 +121,11 @@ function PlayButton({audio, tile=false}) {
 function LibrarySearch() {
   const [query,setQuery] = useState('');
   useEffect(() => {
-    const found = '春日影 mygo!!!!!'.includes(query.trim().toLowerCase());
-    document.querySelector('#song').hidden = !found;
-    document.querySelector('#no-results').hidden = found;
+    const tiles = [...document.querySelectorAll('[data-track][data-glass-ui="song"]')];
+    for (const tile of tiles) {
+      tile.hidden = !(tile.dataset.title+' '+tile.dataset.artist).toLowerCase().includes(query.trim().toLowerCase());
+    }
+    document.querySelector('#no-results').hidden = tiles.some(tile => !tile.hidden);
   },[query]);
   return <GlassInput type="search" aria-label="搜索歌曲或艺人" placeholder="搜索歌曲或艺人" value={query} onChange={e => setQuery(e.target.value)}/>;
 }
@@ -162,7 +165,7 @@ for (const element of document.querySelectorAll('[data-glass-ui]')) {
       aria-controls="library-nav" aria-expanded={open ? false : undefined}
       onClick={() => document.dispatchEvent(new CustomEvent('music-menu',{detail:open}))}/>);
   }
-  if (type === 'song') root.render(<PlayButton audio={audio} tile/>);
+  if (type === 'song') root.render(<PlayButton audio={audio} track={element.dataset}/>);
   if (type === 'header') root.render(<HeaderTools/>);
   if (type === 'play') root.render(<PlayButton audio={audio}/>);
   if (type === 'music-search') root.render(<LibrarySearch/>);
