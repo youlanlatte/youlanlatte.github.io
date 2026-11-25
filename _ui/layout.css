@@ -33,3 +33,4 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 #lyrics p { color:#ded7de; padding:8px 0; line-height:1.5; }
 #lyrics .active { color:white; font-weight:750; background:#ffffff12; }
 @media(max-width:740px){ .music-columns { grid-template-columns:minmax(0,1fr); padding:8px; } .music-view .main { height:auto; min-height:100vh; } .music-columns .lyrics-panel { margin:0 8px 16px; } }
+#lyrics p { white-space:pre-line; }
