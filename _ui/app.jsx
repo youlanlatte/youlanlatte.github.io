@@ -40,7 +40,7 @@ function Caller() {
   }
   return <>
     <GlassCard className="draw-stage" padding="clamp(30px,6vw,76px) 20px">
-      <h1>随机点名</h1><p>剩余 {remaining.length} / {names.length}</p>
+      <h1>随机点名</h1><p>共 {names.length} 位 · 待抽 {remaining.length} 位</p>
       <output id="draw-result" aria-live="polite">{history.at(-1) || '准备抽取'}</output>
       <div className="draw-actions">
         <GlassButton variant="filled" tint="#66538c" disabled={!remaining.length} onClick={() => setHistory([...history,remaining[Math.floor(Math.random()*remaining.length)]])}>随机抽取</GlassButton>
@@ -48,12 +48,12 @@ function Caller() {
       </div>
     </GlassCard>
     <GlassCard className="draw-settings"><h2>本轮记录</h2>
-      {history.length ? <ol id="history">{history.map(name => <li key={name}>{name}</li>)}</ol> : <p>还没有抽取记录</p>}
+      {history.length ? <ol id="history">{history.map(name => <li key={name}>{name}</li>)}</ol> : <p>抽中的名字会显示在这里。</p>}
       <GlassButton size="sm" onClick={() => {setDraft(names.join('\n'));setMessage('');setOpen(true);}}>编辑名单</GlassButton>
     </GlassCard>
     <GlassSheet open={open} onClose={() => setOpen(false)} aria-label="编辑名单">
       <form id="roster-form" onSubmit={apply}>
-        <label htmlFor="roster">每行一位，同名可加学号区分。名单仅在本页使用。</label>
+        <label htmlFor="roster">每行输入一个名字，同名可加学号。刷新页面后恢复默认名单。</label>
         <GlassCard padding="0" radius="16px" className="roster-surface"><textarea id="roster" rows="7" required value={draft} onChange={e => setDraft(e.target.value)}/></GlassCard>
         <GlassButton type="submit" variant="filled">应用名单并开始新一轮</GlassButton>
         <p role="status">{message}</p>

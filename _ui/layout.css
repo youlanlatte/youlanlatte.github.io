@@ -34,3 +34,18 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 #lyrics .active { color:white; font-weight:750; background:#ffffff12; }
 @media(max-width:740px){ .music-columns { grid-template-columns:minmax(0,1fr); padding:8px; } .music-view .main { height:auto; min-height:100vh; } .music-columns .lyrics-panel { margin:0 8px 16px; } }
 #lyrics p { white-space:pre-line; }
+#intro h2 { line-height:1.24; font-size:clamp(1.7rem,3.2vw,2.7rem); letter-spacing:-.025em; }
+#intro p { max-inline-size:36em; line-height:1.85; margin-top:1em; text-wrap:pretty; }
+.home-shortcuts { display:flex; gap:10px; flex-wrap:wrap; margin-top:1.35rem; }
+.repo-item { display:grid; justify-items:start; gap:6px; padding-block:18px; }
+.repo-item small { opacity:.84; line-height:1.55; }
+.archive h2 { margin-block:1.6em .45em; line-height:1.3; }
+.archive p { max-width:40em; line-height:1.85; }
+.archive th { text-align:start; }
+#roster-form label { max-width:32em; line-height:1.7; }
+@media(max-width:720px) {
+  .container { margin-block:24px; padding-inline:14px; gap:16px; }
+  .container > .right-panel { grid-row:1; gap:16px; }
+  #intro,#projects { padding:22px 18px; }
+  .archive { margin-inline:12px; padding:20px 14px; }
+}
