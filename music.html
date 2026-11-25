@@ -40,10 +40,7 @@
           <span>音量</span>
           <div data-glass-ui="volume"></div>
         </div>
-        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" >
-          <source src="music-assets/haruhikage.m4a" type="audio/mp4">
-          <source src="music-assets/haruhikage.mp3" type="audio/mpeg">
-        </audio>
+        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/audio/haruhikage.mp3"></audio>
       </header>
       <div class="music-columns"><section class="page" id="songs">
         <h1 class="playlists">歌曲</h1>
@@ -53,12 +50,12 @@
         </div>
         <p id="no-results" hidden>没有匹配的歌曲</p>
         <p id="status" role="status"></p>
-        <a class="direct-play" href="music-assets/haruhikage.mp3">用浏览器直接播放 ↗</a>
+        <a class="direct-play" href="music-assets/audio/haruhikage.mp3">用浏览器直接播放 ↗</a>
       </section>
-      <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" tabindex="0" aria-label="同步歌词">暂无同步歌词</div></aside></div>
+      <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" tabindex="0" aria-label="同步歌词">加载歌词…</div></aside></div>
     </main>
   </div>
   <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
-  <script src="music-assets/player.js?v=5"></script>
+  <script src="music-assets/player.js?v=6"></script>
 </body>
 </html>

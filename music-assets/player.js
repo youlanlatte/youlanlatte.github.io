@@ -1,54 +1,42 @@
 const audio = document.querySelector('audio');
 const status = document.querySelector('#status');
-const backup = audio.querySelector('source[type="audio/mpeg"]').src;
-let usingBackup = false;
-let wantsPlayback = false;
-
-async function tryPlayback() {
-  try {
-    await audio.play();
-  } catch (error) {
-    if (error.name === 'AbortError') return;
-    if (error.name === 'NotSupportedError' && !usingBackup) {
-      recoverAudio();
-      return;
-    }
-    wantsPlayback = false;
-    status.textContent = '请再次点播放，或使用下方的直接播放入口。';
-  }
-}
-function recoverAudio() {
-  if (!usingBackup && audio.dataset.track !== 'killkiss') {
-    usingBackup = true;
-    audio.src = backup;
-    audio.load();
-    if (wantsPlayback) tryPlayback();
-  } else {
-    wantsPlayback = false;
-    status.textContent = '音频加载失败，可重新点播放或直接打开音频。';
-  }
-}
 async function togglePlayback() {
-  if (!audio.paused) { wantsPlayback = false; audio.pause(); return; }
-  wantsPlayback = true;
+  if (!audio.paused) { audio.pause(); return; }
   if (audio.error) audio.load();
-  status.textContent = '正在加载春日影…';
-  await tryPlayback();
+  status.textContent = '正在加载…';
+  try { await audio.play(); }
+  catch (error) {
+    if (error.name !== 'AbortError') status.textContent = '请再次点播放，或使用下方的直接播放入口。';
+  }
 }
 const lyrics = document.querySelector('#lyrics');
 let cues = [];
 let activeLine = -1;
 let selection = 0;
+function parseLyrics(text) {
+  const groups = new Map();
+  const offset = Number(text.match(/\[offset:([+-]?\d+)\]/i)?.[1] || 0) / 1000;
+  for (const raw of text.split(/\r?\n/)) {
+    const stamps = /\[(\d+):(\d+(?:\.\d+)?)\]/g;
+    const line = raw.replace(stamps, '').trim();
+    if (!line) continue;
+    for (const match of raw.matchAll(stamps)) {
+      const time = Number(match[1]) * 60 + Number(match[2]) - offset;
+      if (!groups.has(time)) groups.set(time, new Set());
+      groups.get(time).add(line);
+    }
+  }
+  return [...groups].sort(([a], [b]) => a-b).map(([time, lines]) => [time,[...lines].join('\n')]);
+}
 async function loadLyrics(track) {
   const request = ++selection;
   cues = [];
   activeLine = -1;
-  lyrics.textContent = track === 'killkiss' ? '加载歌词…' : '暂无同步歌词';
-  if (track !== 'killkiss') return;
+  lyrics.textContent = '加载歌词…';
   try {
-    const response = await fetch('music-assets/killkiss-lyrics.json');
+    const response = await fetch('music-assets/lyrics/'+track+'.lrc');
     if (!response.ok) throw new Error();
-    const lines = await response.json();
+    const lines = parseLyrics(await response.text());
     if (request !== selection) return;
     cues = lines;
     lyrics.replaceChildren(...lines.map(([,text]) => {
@@ -83,18 +71,17 @@ document.addEventListener('toggle-playback', event => {
     audio.setAttribute('aria-label',tile.dataset.title+' · '+tile.dataset.artist);
     document.querySelector('.current strong').textContent = tile.dataset.title;
     document.querySelector('.current small').textContent = tile.dataset.artist;
-    const mp3 = 'music-assets/'+track+'.mp3';
+    const mp3 = 'music-assets/audio/'+track+'.mp3';
     document.querySelector('a.direct-play').href = mp3;
-    usingBackup = false;
-    audio.src = track === 'haruhikage' && audio.canPlayType('audio/mp4') ? 'music-assets/haruhikage.m4a' : mp3;
+    audio.src = mp3;
     audio.dispatchEvent(new Event('trackchange'));
     loadLyrics(track);
   }
   togglePlayback();
 });
 audio.onplaying = () => { status.textContent = ''; };
-audio.onerror = recoverAudio;
-audio.onended = () => { wantsPlayback = false; };
+audio.onerror = () => { status.textContent = '音频加载失败，可重新点播放或直接打开音频。'; };
+loadLyrics('haruhikage');
 const sidebar = document.querySelector('.sidebar');
 function menu(open) {
   sidebar.classList.toggle('open', open);
