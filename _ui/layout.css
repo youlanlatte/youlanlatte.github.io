@@ -31,6 +31,11 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 .lyrics-panel { border:1px solid #ffffff45; border-radius:20px; background:#221f2a9c; backdrop-filter:blur(18px); padding:20px; }
 @media(max-width:740px){ .music-columns { grid-template-columns:minmax(0,1fr); padding:8px; } .music-view .main { height:auto; min-height:100vh; } .music-columns .lyrics-panel { margin:0 8px 16px; } }
 #intro h2 { line-height:1.24; font-size:clamp(1.7rem,3.2vw,2.7rem); letter-spacing:-.025em; }
+.greeting { display:inline-block; }
+@media (prefers-reduced-motion:no-preference) {
+  .greeting.typing { animation:greeting-type 1.4s steps(10,end) both; }
+}
+@keyframes greeting-type { from { clip-path:inset(0 100% 0 0); } to { clip-path:inset(0); } }
 #intro p { max-inline-size:36em; line-height:1.85; margin-top:1em; text-wrap:pretty; }
 .home-shortcuts { display:flex; gap:10px; flex-wrap:wrap; margin-top:1.35rem; }
 .repo-item { display:grid; justify-items:start; gap:6px; padding-block:18px; }
@@ -41,7 +46,8 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 #roster-form label { max-width:32em; line-height:1.7; }
 @media(max-width:720px) {
   .container { margin-block:24px; padding-inline:14px; gap:16px; }
-  .container > .right-panel { grid-row:1; gap:16px; }
+  .container > .left-panel { grid-row:1; }
+  .container > .right-panel { gap:16px; }
   #intro,#projects { padding:22px 18px; }
   .archive { margin-inline:12px; padding:20px 14px; }
 }

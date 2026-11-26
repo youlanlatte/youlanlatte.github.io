@@ -40,7 +40,7 @@ title: 个人主页
 
     <main id="content" tabindex="-1" class="right-panel">
       <div id="intro" class="intro-card glass">
-        <h2>你好，我是幽兰拿铁。</h2>
+        <h2><span class="greeting">你好，我是幽兰拿铁。</span></h2>
         <p>我用 Python 写小工具，也喜欢手绘和 Vocaloid 音乐。这里放着我的代码实践、听歌收藏，还有偶尔记下的旅行见闻。</p>
         <p>想看看我最近在做什么，可以翻翻下面的项目。想一起听歌，就从《春日影》开始吧。</p>
         <nav class="home-shortcuts" aria-label="常用入口">
@@ -59,3 +59,15 @@ title: 个人主页
   </div>
 
   <script src="js/github.js"></script>
+  <script>
+    const greeting = document.querySelector('.greeting');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          greeting.classList.add('typing');
+          observer.disconnect();
+        }
+      });
+      observer.observe(greeting);
+    }
+  </script>
