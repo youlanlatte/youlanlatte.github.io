@@ -11,6 +11,7 @@
   <link rel="stylesheet" href="assets/ui/glass.css">
   <script defer src="assets/ui/glass.js"></script>
 <link rel="stylesheet" href="music-assets/lyric-view.css">
+<link rel="stylesheet" href="music-assets/library-layout.css">
 </head>
 <body class="music-view">
   <div class="container flex justify-content">
@@ -25,12 +26,13 @@
           <a href="index.html" class="option flex align-items"><img src="music-assets/icons/home.svg" alt="">博客首页</a>
           <a href="#songs" class="option flex align-items"><img src="music-assets/icons/browse.svg" alt="">歌曲资料库</a>
         </nav>
+        <small class="sidebar-credit">Apple Music Clone · Aditya Bagri</small>
       </div>
     </aside>
     <main class="main">
       <header class="header flex">
         <div class="transport">
-          <span class="menu-slot" data-glass-ui="open-menu"></span>
+          
           <span data-glass-ui="play"></span>
         </div>
         <div class="current">
@@ -45,11 +47,13 @@
         <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/audio/haruhikage.mp3"></audio>
       </header>
       <div class="music-columns"><section class="page" id="songs">
-        <h1 class="playlists">歌曲资料库</h1>
+        <div class="library-heading"><span class="menu-slot" data-glass-ui="open-menu"></span><h1 class="playlists">音乐主页</h1></div>
+        <h2>歌曲资料库</h2>
         <div class="cardContainer flex">
           <div id="song" data-track="haruhikage" data-title="春日影" data-artist="MyGO!!!!!" data-glass-ui="song"></div>
           <div data-track="killkiss" data-title="KiLLKiSS" data-artist="Ave Mujica" data-glass-ui="song"></div>
         </div>
+        <section class="recent-list" hidden><h2>最近播放</h2><div></div></section>
         <p id="no-results" hidden>没有找到匹配的歌曲。试试歌名或艺人名。</p>
         <p id="status" role="status"></p>
         <a class="direct-play" href="music-assets/audio/haruhikage.mp3">直接打开当前音频 ↗</a>
@@ -57,10 +61,10 @@
       <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" class="timed-viewport" tabindex="0" aria-label="同步歌词">加载歌词…</div></aside></div>
     </main>
   </div>
-  <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
+
   
 <dialog id="full-player" aria-label="全屏音乐播放器"></dialog>
   <script src="music-assets/lyric-view.js"></script>
-  <script src="music-assets/player.js?v=10"></script>
+  <script src="music-assets/player.js?v=11"></script>
 </body>
 </html>

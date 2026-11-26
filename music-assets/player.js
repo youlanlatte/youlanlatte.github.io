@@ -132,7 +132,7 @@ expand.onclick = () => {
   if (!frame) {
     frame = document.createElement('iframe');
     frame.title = '全屏播放器';
-    frame.src = 'music-assets/fullscreen/view.html?v=2';
+    frame.src = 'music-assets/fullscreen/view.html?v=3';
     popup.append(frame);
   }
   popup.showModal();
@@ -146,3 +146,27 @@ popup.addEventListener('cancel', event => {event.preventDefault(); closePlayer()
 window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, lines:() => cues,
   title:() => document.querySelector('.current strong').textContent,
   art:() => document.querySelector('.mini-art').src};
+const recentPanel = document.querySelector('.recent-list');
+let recent = [];
+try { const saved=JSON.parse(localStorage.getItem('recent-tracks') || '[]'); if(Array.isArray(saved)) recent=saved.filter(id=>['killkiss','haruhikage'].includes(id)); } catch {}
+function renderRecent() {
+  const buttons = recent.map(id=>{
+    const tile=document.querySelector('[data-track="'+id+'"][data-title]');
+    const button=document.createElement('button');
+    const img=document.createElement('img'); img.src='music-assets/'+id+'.jpg'; img.alt='';
+    button.append(img,tile.dataset.title);
+    button.onclick=()=>document.dispatchEvent(new CustomEvent('toggle-playback',{detail:id}));
+    return button;
+  });
+  recentPanel.querySelector('div').replaceChildren(...buttons);
+  recentPanel.hidden=!buttons.length;
+}
+renderRecent();
+audio.addEventListener('playing',()=>{
+  const id=audio.dataset.track || 'haruhikage';
+  document.querySelector('.lyrics-panel').style.setProperty('--art','url("'+document.querySelector('.mini-art').src+'")');
+  if(id==='local') return;
+  recent=[id,...recent.filter(other=>other!==id)];
+  try {localStorage.setItem('recent-tracks',JSON.stringify(recent));} catch {}
+  renderRecent();
+});

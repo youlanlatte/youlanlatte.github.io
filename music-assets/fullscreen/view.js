@@ -3,7 +3,7 @@ const audio = player.audio;
 const $ = selector => document.querySelector(selector);
 const cover = $('.svgcontainer');
 const input = $('.audiofile');
-const paintLyrics = createLyricView($('.lyricscontainer'),audio,()=>parent.document.querySelector('#full-player').open);
+const paintLyrics = createStageLyrics($('.lyricscontainer'),audio,()=>parent.document.querySelector('#full-player').open);
 function metadata() {
   $('.name').textContent = player.title();
   const image = 'url("' + player.art() + '")';
