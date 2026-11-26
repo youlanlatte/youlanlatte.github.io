@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MusicPlayer Like AM</title>
+    <link rel="stylesheet" href="./view.css" />
+</head>
+
+<body>
+    <div class="leftcontent">
+        <div class="svgcontainer" role="button" tabindex="0" title="选择本地音频、歌词或封面" aria-label="选择本地音频、歌词或封面">
+            <div class="svg"></div>
+        </div>
+        <div class="time">
+            <p class="start">0:00</p>
+            <p class="name">点击音乐图标选择音频和 lrc 文件</p>
+            <p class="end">-0:00</p>
+        </div>
+        <input type="range" class="processbar" aria-label="播放进度" min="0" max="1" step="0.1" value="0">
+        <div class="conbox">
+            <button class="controls" aria-label="播放">
+                <div class="play">
+                    <svg viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg" style="filter: brightness(1.2)">
+                        <path
+                            d="M10.345 23.287c.415 0 .763-.15 1.22-.407l12.742-7.404c.838-.481 1.178-.855 1.178-1.46 0-.599-.34-.972-1.178-1.462L11.565 5.158c-.457-.265-.805-.407-1.22-.407-.789 0-1.345.606-1.345 1.57V21.71c0 .971.556 1.577 1.345 1.577z"
+                            fill-rule="nonzero" fill="#c1c1c1"></path>
+                    </svg>
+                </div>
+                <div class="pause">
+                    <svg viewBox="0 0 32 28" xmlns="http://www.w3.org/2000/svg" style="filter: brightness(1.2)">
+                        <path
+                            d="M13.293 22.772c.955 0 1.436-.481 1.436-1.436V6.677c0-.98-.481-1.427-1.436-1.427h-2.457c-.954 0-1.436.473-1.436 1.427v14.66c-.008.954.473 1.435 1.436 1.435h2.457zm7.87 0c.954 0 1.427-.481 1.427-1.436V6.677c0-.98-.473-1.427-1.428-1.427h-2.465c-.955 0-1.428.473-1.428 1.427v14.66c0 .954.473 1.435 1.428 1.435h2.465z"
+                            fill-rule="nonzero" fill="#c1c1c1"></path>
+                    </svg>
+                </div>
+            </button>
+        </div>
+    </div>
+    <div class="rightcontent">
+        <div class="lyricscontainer">
+            <div class="lyrics"></div>
+        </div>
+    </div>
+
+    <button class="collapse" aria-label="收起播放器">⌄</button>
+    <input type="file" accept="audio/*,image/*,.lrc,.mp3,.m4a,.flac,.wav,.ogg" class="audiofile" multiple>
+    <script src="view.js"></script>
+</body></html>

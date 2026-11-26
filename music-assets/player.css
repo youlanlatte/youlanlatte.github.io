@@ -67,3 +67,6 @@ body {
 .music-view #lyrics p span + span { font-size:.88em; font-weight:450; opacity:.84; }
 .music-view #lyrics p.active { border-color:#ffb7cc; background:#ffffff19; color:white; font-weight:700; }
 @media(prefers-reduced-motion:reduce) { .music-view #lyrics p { transition:none; } }
+.expand-art { grid-column:1!important; grid-row:1 / 4; padding:0; border:0; line-height:0; }
+#full-player { position:fixed; inset:0; width:100vw; height:100dvh; max-width:none; max-height:none; margin:0; padding:0; border:0; background:#24212b; }
+#full-player iframe { width:100%; height:100%; border:none; display:block; }

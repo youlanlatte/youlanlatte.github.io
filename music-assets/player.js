@@ -52,11 +52,17 @@ async function loadLyrics(track) {
   cues = [];
   activeLine = -1;
   lyrics.textContent = '加载歌词…';
+  audio.dispatchEvent(new Event('lyricschange'));
   try {
     const response = await fetch('music-assets/lyrics/'+track+'.lrc?v=7');
     if (!response.ok) throw new Error();
     const lines = parseLyrics(await response.text());
     if (request !== selection) return;
+    renderLyrics(lines);
+  } catch { if (request === selection) lyrics.textContent = '歌词暂时无法加载'; }
+}
+function renderLyrics(lines) {
+  activeLine = -1;
     cues = lines;
     lyrics.replaceChildren(...lines.map(([,text]) => {
       const node = document.createElement('p');
@@ -68,7 +74,7 @@ async function loadLyrics(track) {
       return node;
     }));
     syncLyrics();
-  } catch { if (request === selection) lyrics.textContent = '歌词暂时无法加载'; }
+  audio.dispatchEvent(new Event('lyricschange'));
 }
 function syncLyrics() {
   const index = cues.findLastIndex(([time]) => time <= audio.currentTime);
@@ -97,6 +103,7 @@ document.addEventListener('toggle-playback', event => {
     const mp3 = 'music-assets/audio/'+track+'.mp3';
     document.querySelector('a.direct-play').href = mp3;
     audio.src = mp3;
+    releaseLocalFiles();
     audio.dispatchEvent(new Event('trackchange'));
     loadLyrics(track);
   }
@@ -120,3 +127,67 @@ sidebar.addEventListener('click', event => {
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && sidebar.classList.contains('open')) menu(false);
 });
+const popup = document.querySelector('#full-player');
+const expand = document.querySelector('.expand-art');
+let frame;
+let localUrls = [];
+function releaseLocalFiles() {
+  localUrls.forEach(url => URL.revokeObjectURL(url));
+  localUrls = [];
+}
+function localUrl(file) {
+  const url = URL.createObjectURL(file);
+  localUrls.push(url);
+  return url;
+}
+async function selectLocal(files) {
+  const song = files.find(f => f.type.startsWith('audio/') || /\.(mp3|m4a|wav|flac|ogg)$/i.test(f.name));
+  const art = files.find(f => f.type.startsWith('image/'));
+  const lrc = files.find(f => /\.lrc$/i.test(f.name));
+  if (song) {
+    audio.pause();
+    releaseLocalFiles();
+    audio.dataset.track = 'local';
+    const name = song.name.replace(/\.[^.]+$/, '');
+    document.querySelector('.current strong').textContent = name;
+    document.querySelector('.current small').textContent = '本地音乐';
+    audio.setAttribute('aria-label',name+' · 本地音乐');
+    document.querySelector('.mini-art').src = 'music-assets/fullscreen/default.svg';
+    audio.src = localUrl(song);
+    document.querySelector('a.direct-play').href = audio.src;
+    ++selection;
+    renderLyrics([]);
+    lyrics.textContent = '暂无同步歌词';
+    togglePlayback();
+  }
+  if (art) document.querySelector('.mini-art').src = localUrl(art);
+  audio.dispatchEvent(new Event('trackchange'));
+  if (lrc) {
+    const request = ++selection;
+    const lines = parseLyrics(await lrc.text());
+    if (request === selection) renderLyrics(lines);
+  }
+}
+function closePlayer() {
+  if (document.fullscreenElement === popup) document.exitFullscreen().catch(() => {});
+  if (popup.open) popup.close();
+  expand.focus();
+}
+expand.onclick = () => {
+  if (!frame) {
+    frame = document.createElement('iframe');
+    frame.title = '全屏播放器';
+    frame.src = 'music-assets/fullscreen/view.html';
+    popup.append(frame);
+  }
+  popup.showModal();
+  popup.requestFullscreen?.().catch(() => {});
+  frame.contentWindow.dispatchEvent(new Event('playeropen'));
+};
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && popup.open) closePlayer();
+});
+popup.addEventListener('cancel', event => {event.preventDefault(); closePlayer();});
+window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, lines:() => cues,
+  title:() => document.querySelector('.current strong').textContent,
+  art:() => document.querySelector('.mini-art').src};
