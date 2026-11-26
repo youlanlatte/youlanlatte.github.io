@@ -23,3 +23,27 @@
 .recent-list img {width:46px;height:46px;border-radius:8px;}
 @media(max-width:1074px){.music-view{--rail:0px;} .music-view .sidebar {width:min(290px,92vw);}}
 @media(max-width:740px){.music-view .music-columns{display:block;padding-bottom:110px;} .music-view .page{padding:18px;} .music-view .cardContainer{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;} .library-heading{margin-bottom:20px;} .music-view .lyrics-panel{position:relative;height:auto;border:0;border-radius:16px;margin:10px 16px;} .music-view #lyrics{height:42dvh;--lyric-pad:19vh;} .music-view .main .header{left:50%;width:calc(100% - 18px);} }
+/* Keep the two library covers at half their previous edge length. */
+.music-view .cardContainer {width:50%;max-width:380px;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;}
+.music-view .song-tile :is(.cardTitle,.cardDesc){padding-inline:4px;}
+.music-view .main .header {grid-template-columns:auto minmax(0,1fr) auto;gap:12px;min-height:54px;padding:5px 16px;background:linear-gradient(105deg,#29434ae8,#47434be8 60%,#595354e8);box-shadow:0 8px 28px #0006,inset 0 1px 1px #ffffff47;}
+.music-view .header .transport,.music-view .header .level{gap:3px;width:auto;flex-direction:row;}
+.dock-key {min-width:24px;min-height:32px;padding:3px;font-size:13px;color:#e6e6ed;}
+.dock-key[aria-pressed="true"] {color:#93dfff;}
+.music-view .header .current {background:transparent;box-shadow:none;border:0;backdrop-filter:none;text-align:left;padding:0;grid-template-rows:auto auto 6px;position:relative;}
+.music-view .current .mini-art {width:34px;border-radius:5px;}
+.music-view .current strong,.music-view .current small {overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.2;}
+.music-view .current strong{font-size:13px;}
+.music-view .current [data-glass-ui="seek"] {align-self:center;z-index:1;height:12px;}
+.current .lg-slider {height:12px;}
+.current .lg-slider__rail {height:2px;}
+.current .lg-slider__thumb {opacity:0;}
+.current :is(:hover,:focus-within) .lg-slider__thumb {opacity:1;}
+.music-view .level [data-glass-ui="volume"]{width:65px;}
+@media(max-width:600px){
+ .music-view .main .header {gap:5px;padding-inline:9px;}
+ .music-view .level [data-glass-ui="volume"]{width:42px;}
+ .dock-key[data-action="shuffle"],.dock-key[data-action="repeat"] {display:none;}
+ .music-view .cardContainer {gap:5px;}
+}
+.music-view.lyrics-closed .music-columns {grid-template-columns:minmax(0,1fr);}

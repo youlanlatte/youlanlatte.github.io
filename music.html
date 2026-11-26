@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="assets/ui/glass.css">
   <script defer src="assets/ui/glass.js"></script>
 <link rel="stylesheet" href="music-assets/lyric-view.css">
-<link rel="stylesheet" href="music-assets/library-layout.css">
+<link rel="stylesheet" href="music-assets/library-layout.css?v=2">
 </head>
 <body class="music-view">
   <div class="container flex justify-content">
@@ -33,7 +33,11 @@
       <header class="header flex">
         <div class="transport">
           
+          <button class="dock-key" data-action="shuffle" aria-label="随机播放" aria-pressed="false">⤨</button>
+          <button class="dock-key" data-action="previous" aria-label="上一首">◀◀</button>
           <span data-glass-ui="play"></span>
+          <button class="dock-key" data-action="next" aria-label="下一首">▶▶</button>
+          <button class="dock-key" data-action="repeat" aria-label="单曲循环" aria-pressed="false">↻</button>
         </div>
         <div class="current">
           <button class="expand-art" aria-label="展开全屏播放器"><img class="mini-art" src="music-assets/haruhikage.jpg" width="40" height="40" alt=""></button>
@@ -41,7 +45,8 @@
           <div data-glass-ui="seek"></div>
         </div>
         <div class="level">
-          <span>音量</span>
+          <button class="dock-key" data-action="lyrics" aria-label="显示歌词" aria-pressed="true">♬</button>
+          <button class="dock-key" data-action="mute" aria-label="静音" aria-pressed="false">◖))</button>
           <div data-glass-ui="volume"></div>
         </div>
         <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/audio/haruhikage.mp3"></audio>
@@ -64,7 +69,7 @@
 
   
 <dialog id="full-player" aria-label="全屏音乐播放器"></dialog>
-  <script src="music-assets/lyric-view.js"></script>
-  <script src="music-assets/player.js?v=11"></script>
+  <script src="music-assets/lyric-view.js?v=2"></script>
+  <script src="music-assets/player.js?v=12"></script>
 </body>
 </html>

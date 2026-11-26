@@ -132,7 +132,7 @@ expand.onclick = () => {
   if (!frame) {
     frame = document.createElement('iframe');
     frame.title = '全屏播放器';
-    frame.src = 'music-assets/fullscreen/view.html?v=3';
+    frame.src = 'music-assets/fullscreen/view.html?v=4';
     popup.append(frame);
   }
   popup.showModal();
@@ -170,3 +170,33 @@ audio.addEventListener('playing',()=>{
   try {localStorage.setItem('recent-tracks',JSON.stringify(recent));} catch {}
   renderRecent();
 });
+const dock = document.querySelector('.main .header');
+const catalog = [...document.querySelectorAll('[data-glass-ui="song"]')].map(el=>el.dataset.track);
+let shuffle = false;
+function skipTrack(step) {
+  const current = audio.dataset.track || 'haruhikage';
+  const others = catalog.filter(id=>id!==current);
+  const index = catalog.indexOf(current);
+  const next = shuffle && others.length ? others[Math.floor(Math.random()*others.length)]
+    : catalog[(index + step + catalog.length) % catalog.length];
+  document.dispatchEvent(new CustomEvent('toggle-playback',{detail:next}));
+}
+dock.addEventListener('click',event=>{
+  const button = event.target.closest('[data-action]');
+  if (!button) return;
+  switch(button.dataset.action) {
+    case 'previous': skipTrack(-1);break;
+    case 'next': skipTrack(1);break;
+    case 'shuffle': shuffle=!shuffle;button.setAttribute('aria-pressed',String(shuffle));break;
+    case 'repeat': audio.loop=!audio.loop;button.setAttribute('aria-pressed',String(audio.loop));break;
+    case 'mute': audio.muted=!audio.muted;button.setAttribute('aria-pressed',String(audio.muted));break;
+    case 'lyrics': {
+      const panel=document.querySelector('.lyrics-panel');
+      panel.hidden=!panel.hidden;
+      document.body.classList.toggle('lyrics-closed',panel.hidden);
+      button.setAttribute('aria-pressed',String(!panel.hidden));
+      break;
+    }
+  }
+});
+audio.addEventListener('ended',()=>{if(shuffle && !audio.loop)skipTrack(1);});

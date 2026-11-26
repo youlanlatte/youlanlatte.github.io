@@ -7,7 +7,7 @@ function createLyricView(viewport, audio, visible = () => true) {
     const current = lines.children[Math.max(0,active)];
     if (!current || !visible()) return;
     const previous = viewport.scrollTop;
-    viewport.scrollTop = current.offsetTop - (viewport.clientHeight-current.offsetHeight)/2;
+    viewport.scrollTop = current.offsetTop - viewport.clientHeight*.45 + current.offsetHeight/2;
     const shift = viewport.scrollTop-previous;
     for (const [i,row] of Array.from(lines.children).entries()) {
       row.getAnimations().forEach(animation => animation.cancel());
