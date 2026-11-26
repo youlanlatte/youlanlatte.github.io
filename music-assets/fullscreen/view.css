@@ -449,3 +449,5 @@ body::before { content:""; position:fixed; inset:-10%; z-index:-1; background:li
  .time,.processbar { width:80vw; } .time { margin-top:10px; }
  .lyricscontainer { height:49dvh; } .lyrics { padding:18dvh 7vw; }
 }
+.full-seek { width:min(68vh,37vw); margin-block:4px; }
+@media(max-width:680px) { .full-seek {width:80vw;} .lyricscontainer {--lyric-pad:24dvh;} }

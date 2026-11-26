@@ -1,0 +1,13 @@
+.timed-viewport { position:relative; overflow:auto; scrollbar-width:none; overscroll-behavior:contain;
+  mask-image:linear-gradient(transparent,#000 24%,#000 76%,transparent); }
+.timed-viewport .timed-lines { padding:var(--lyric-pad,40vh) 5%; }
+.timed-viewport .timed-lines .line {
+  margin:0; padding:12px 0; border:0; border-radius:0; background:none;
+  font:700 clamp(21px,2.6vw,40px)/1.42 system-ui,sans-serif;
+  color:rgba(255,255,255,.5); filter:blur(var(--blur,0px)); overflow-wrap:anywhere;
+  transition:color .35s,filter .5s;
+}
+.timed-viewport .timed-lines .line.active { color:white; filter:none; }
+.timed-lines .line span { display:block; }
+.timed-lines .line span + span { font-size:.7em; font-weight:500; }
+@media(prefers-reduced-motion:reduce){ .timed-viewport .timed-lines .line {transition:none;} }

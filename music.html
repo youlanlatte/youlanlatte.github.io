@@ -6,10 +6,11 @@
   <title>音乐 · 幽兰拿铁</title>
   <link rel="stylesheet" href="music-assets/style.css">
   <link rel="stylesheet" href="music-assets/utility.css">
-  <link rel="stylesheet" href="music-assets/player.css?v=7">
+  <link rel="stylesheet" href="music-assets/player.css?v=8">
   <link rel="stylesheet" href="css/lens.css">
   <link rel="stylesheet" href="assets/ui/glass.css">
   <script defer src="assets/ui/glass.js"></script>
+<link rel="stylesheet" href="music-assets/lyric-view.css">
 </head>
 <body class="music-view">
   <div class="container flex justify-content">
@@ -53,12 +54,13 @@
         <p id="status" role="status"></p>
         <a class="direct-play" href="music-assets/audio/haruhikage.mp3">直接打开当前音频 ↗</a>
       </section>
-      <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" tabindex="0" aria-label="同步歌词">加载歌词…</div></aside></div>
+      <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" class="timed-viewport" tabindex="0" aria-label="同步歌词">加载歌词…</div></aside></div>
     </main>
   </div>
   <footer class="footer">Apple Music Clone · Aditya Bagri</footer>
   
 <dialog id="full-player" aria-label="全屏音乐播放器"></dialog>
-  <script src="music-assets/player.js?v=9"></script>
+  <script src="music-assets/lyric-view.js"></script>
+  <script src="music-assets/player.js?v=10"></script>
 </body>
 </html>

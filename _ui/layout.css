@@ -29,11 +29,7 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 .music-columns { display:grid; grid-template-columns:minmax(0,1.35fr) minmax(220px,.9fr); gap:20px; padding:20px; }
 .music-columns .page { padding:12px; }
 .lyrics-panel { border:1px solid #ffffff45; border-radius:20px; background:#221f2a9c; backdrop-filter:blur(18px); padding:20px; }
-#lyrics { position:relative; overflow-y:auto; max-height:55vh; margin-top:12px; overscroll-behavior:contain; }
-#lyrics p { color:#ded7de; padding:8px 0; line-height:1.5; }
-#lyrics .active { color:white; font-weight:750; background:#ffffff12; }
 @media(max-width:740px){ .music-columns { grid-template-columns:minmax(0,1fr); padding:8px; } .music-view .main { height:auto; min-height:100vh; } .music-columns .lyrics-panel { margin:0 8px 16px; } }
-#lyrics p { white-space:pre-line; }
 #intro h2 { line-height:1.24; font-size:clamp(1.7rem,3.2vw,2.7rem); letter-spacing:-.025em; }
 #intro p { max-inline-size:36em; line-height:1.85; margin-top:1em; text-wrap:pretty; }
 .home-shortcuts { display:flex; gap:10px; flex-wrap:wrap; margin-top:1.35rem; }

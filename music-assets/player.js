@@ -11,24 +11,8 @@ async function togglePlayback() {
 }
 const lyrics = document.querySelector('#lyrics');
 let cues = [];
-let activeLine = -1;
 let selection = 0;
-let resumeScroll;
-function centerLine() {
-  const line = lyrics.children[activeLine];
-  if (!line) return;
-  lyrics.scrollTo({top:line.offsetTop-(lyrics.clientHeight-line.offsetHeight)/2,
-    behavior:matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth'});
-}
-function browseLyrics() {
-  clearTimeout(resumeScroll);
-  resumeScroll = setTimeout(() => { resumeScroll = null; centerLine(); }, 4000);
-}
-lyrics.addEventListener('wheel', browseLyrics, {passive:true});
-lyrics.addEventListener('touchmove', browseLyrics, {passive:true});
-lyrics.addEventListener('keydown', event => {
-  if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(event.key)) browseLyrics();
-});
+const paintLyrics = createLyricView(lyrics,audio);
 function parseLyrics(text) {
   const groups = new Map();
   const offset = Number(text.match(/\[offset:([+-]?\d+)\]/i)?.[1] || 0) / 1000;
@@ -46,13 +30,7 @@ function parseLyrics(text) {
 }
 async function loadLyrics(track) {
   const request = ++selection;
-  clearTimeout(resumeScroll);
-  resumeScroll = null;
-  lyrics.scrollTop = 0;
-  cues = [];
-  activeLine = -1;
-  lyrics.textContent = '加载歌词…';
-  audio.dispatchEvent(new Event('lyricschange'));
+  renderLyrics([], '加载歌词…');
   try {
     const response = await fetch('music-assets/lyrics/'+track+'.lrc?v=7');
     if (!response.ok) throw new Error();
@@ -61,34 +39,11 @@ async function loadLyrics(track) {
     renderLyrics(lines);
   } catch { if (request === selection) lyrics.textContent = '歌词暂时无法加载'; }
 }
-function renderLyrics(lines) {
-  activeLine = -1;
-    cues = lines;
-    lyrics.replaceChildren(...lines.map(([,text]) => {
-      const node = document.createElement('p');
-      for (const part of text.split('\n')) {
-        const row = document.createElement('span');
-        row.textContent = part;
-        node.append(row);
-      }
-      return node;
-    }));
-    syncLyrics();
+function renderLyrics(lines,message) {
+  cues = lines;
+  paintLyrics(lines,message);
   audio.dispatchEvent(new Event('lyricschange'));
 }
-function syncLyrics() {
-  const index = cues.findLastIndex(([time]) => time <= audio.currentTime);
-  if (index === activeLine) return;
-  lyrics.children[activeLine]?.classList.remove('active');
-  activeLine = index;
-  const line = lyrics.children[index];
-  if (line) {
-    line.classList.add('active');
-    if (!resumeScroll) centerLine();
-  } else lyrics.scrollTop = 0;
-}
-audio.addEventListener('timeupdate',syncLyrics);
-audio.addEventListener('seeked',syncLyrics);
 document.addEventListener('toggle-playback', event => {
   const track = event.detail;
   if (track && track !== (audio.dataset.track || 'haruhikage')) {
@@ -177,7 +132,7 @@ expand.onclick = () => {
   if (!frame) {
     frame = document.createElement('iframe');
     frame.title = '全屏播放器';
-    frame.src = 'music-assets/fullscreen/view.html';
+    frame.src = 'music-assets/fullscreen/view.html?v=2';
     popup.append(frame);
   }
   popup.showModal();

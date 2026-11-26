@@ -166,6 +166,7 @@ for (const element of document.querySelectorAll('[data-glass-ui]')) {
       onClick={() => document.dispatchEvent(new CustomEvent('music-menu',{detail:open}))}/>);
   }
   if (type === 'song') root.render(<PlayButton audio={audio} track={element.dataset}/>);
+  if (type === 'fullscreen-seek' && window.parent.fullPlayer) root.render(<MediaSlider audio={window.parent.fullPlayer.audio} volume={false}/>);
   if (type === 'header') root.render(<HeaderTools/>);
   if (type === 'play') root.render(<PlayButton audio={audio}/>);
   if (type === 'music-search') root.render(<LibrarySearch/>);
