@@ -169,7 +169,7 @@ async function selectLocal(files) {
   }
 }
 function closePlayer() {
-  if (document.fullscreenElement === popup) document.exitFullscreen().catch(() => {});
+  if (document.fullscreenElement === document.documentElement) document.exitFullscreen().catch(() => {});
   if (popup.open) popup.close();
   expand.focus();
 }
@@ -181,7 +181,7 @@ expand.onclick = () => {
     popup.append(frame);
   }
   popup.showModal();
-  popup.requestFullscreen?.().catch(() => {});
+  document.documentElement.requestFullscreen?.().catch(() => {});
   frame.contentWindow.dispatchEvent(new Event('playeropen'));
 };
 document.addEventListener('fullscreenchange', () => {
