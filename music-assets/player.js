@@ -124,12 +124,25 @@ async function selectLocal(files) {
   }
 }
 function closePlayer() {
-  if (typeof popup.close === 'function' && popup.open) popup.close();
-  popup.removeAttribute('open');
-  document.body.classList.remove('player-open');
-  expand.focus();
+  if (!popup.hasAttribute('open')) return;
+  if (typeof popup.close === 'function') popup.close();
+  else {
+    popup.removeAttribute('open');
+    restoreDock();
+  }
 }
-popup.querySelector('.player-close-slot').onclick = closePlayer;
+function restoreDock() {
+  if (popup.hasAttribute('open')) return;
+  document.body.classList.remove('player-open');
+  expand.focus({preventScroll:true});
+}
+popup.addEventListener('close', restoreDock);
+popup.querySelector('.player-close-slot').addEventListener('submit', event => {
+  if (typeof popup.close !== 'function') {
+    event.preventDefault();
+    closePlayer();
+  }
+});
 function openPlayer() {
   if (popup.hasAttribute('open')) return;
   if (!frame) {
