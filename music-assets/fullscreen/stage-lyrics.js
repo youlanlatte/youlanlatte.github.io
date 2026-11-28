@@ -2,6 +2,30 @@
 function createStageLyrics(viewport, audio, visible) {
   const stage = viewport.querySelector('.lyrics');
   let cues = [], active = -2;
+  let resume;
+  function endBrowse() {
+    clearTimeout(resume);
+    resume = null;
+    viewport.classList.remove('browsing');
+    viewport.scrollTop = 0;
+  }
+  function browse() {
+    if (!cues.length) return;
+    if (!resume) {
+      const row = stage.children[Math.max(0,active)];
+      const before = row.getBoundingClientRect().top;
+      viewport.classList.add('browsing');
+      viewport.scrollTop += row.getBoundingClientRect().top - before;
+    }
+    clearTimeout(resume);
+    resume = setTimeout(() => { endBrowse(); position(true); },4000);
+  }
+  viewport.addEventListener('wheel',browse,{passive:true});
+  viewport.addEventListener('touchstart',browse,{passive:true});
+  viewport.addEventListener('touchmove',browse,{passive:true});
+  viewport.addEventListener('keydown',event => {
+    if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(event.key)) browse();
+  });
   function position(snap = false) {
     if (!visible() || !cues.length) return;
     const next = cues.findLastIndex(([time]) => time <= audio.currentTime);
@@ -27,6 +51,7 @@ function createStageLyrics(viewport, audio, visible) {
   audio.addEventListener('seeked',()=>position(true));
   new ResizeObserver(()=>position(true)).observe(viewport);
   return rows => {
+    endBrowse();
     cues=rows; active=-2;
     stage.replaceChildren(...rows.map(([,text])=>{
       const item=document.createElement('div');

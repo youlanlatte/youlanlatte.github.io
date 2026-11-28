@@ -31,18 +31,27 @@ function createLyricView(viewport, audio, visible = () => true) {
     });
     if (!resume) center(!force && adjacent);
   }
-  function browse() {
+  function endBrowse() {
     clearTimeout(resume);
-    resume = setTimeout(() => { resume=null; center(true); },4000);
+    resume = null;
+    viewport.classList.remove('browsing');
+  }
+  function browse() {
+    if (!resume) {
+      viewport.classList.add('browsing');
+      lines.getAnimations({subtree:true}).forEach(animation => animation.cancel());
+    }
+    clearTimeout(resume);
+    resume = setTimeout(() => { endBrowse(); center(true); },4000);
   }
   viewport.addEventListener('wheel',browse,{passive:true});
   viewport.addEventListener('touchmove',browse,{passive:true});
   viewport.addEventListener('keydown',e=>{if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(e.key)) browse();});
   audio.addEventListener('timeupdate',()=>update());
-  audio.addEventListener('seeked',()=>{clearTimeout(resume);resume=null;update(true);});
+  audio.addEventListener('seeked',()=>{endBrowse();update(true);});
   new ResizeObserver(()=>update(true)).observe(viewport);
   return (next,message='暂无同步歌词') => {
-    clearTimeout(resume);resume=null;active=-2;cues=next;
+    endBrowse();active=-2;cues=next;
     lines.replaceChildren(...next.map(([,text])=>{
       const row=document.createElement('p');
       row.className='line';

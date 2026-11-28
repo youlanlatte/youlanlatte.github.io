@@ -8,6 +8,9 @@
   transition:color .35s,filter .5s;
 }
 .timed-viewport .timed-lines .line.active { color:white; filter:none; }
+.timed-viewport.browsing { mask-image:none; }
+.timed-viewport.browsing .timed-lines .line { color:#eee; filter:none; transition:none; }
+.timed-viewport.browsing .timed-lines .active { color:white; }
 .timed-lines .line span { display:block; }
 .timed-lines .line span + span { font-size:.7em; font-weight:500; }
 @media(prefers-reduced-motion:reduce){ .timed-viewport .timed-lines .line {transition:none;} }

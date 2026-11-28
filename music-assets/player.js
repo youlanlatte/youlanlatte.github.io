@@ -52,7 +52,7 @@ document.addEventListener('toggle-playback', event => {
     audio.pause();
     audio.dataset.track = track;
     audio.setAttribute('aria-label',tile.dataset.title+' · '+tile.dataset.artist);
-    document.querySelector('.mini-art').src = 'music-assets/'+track+'.jpg';
+    document.querySelector('.mini-art').src = 'music-assets/covers/'+track+'.jpg';
     document.querySelector('.current strong').textContent = tile.dataset.title;
     document.querySelector('.current small').textContent = tile.dataset.artist;
     const mp3 = 'music-assets/audio/'+track+'.mp3';
@@ -153,7 +153,7 @@ function renderRecent() {
   const buttons = recent.map(id=>{
     const tile=document.querySelector('[data-track="'+id+'"][data-title]');
     const button=document.createElement('button');
-    const img=document.createElement('img'); img.src='music-assets/'+id+'.jpg'; img.alt='';
+    const img=document.createElement('img'); img.src='music-assets/covers/'+id+'.jpg'; img.alt='';
     button.append(img,tile.dataset.title);
     button.onclick=()=>document.dispatchEvent(new CustomEvent('toggle-playback',{detail:id}));
     return button;
