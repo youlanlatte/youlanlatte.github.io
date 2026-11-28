@@ -153,6 +153,10 @@ for (const element of document.querySelectorAll('[data-glass-ui]')) {
   const audio = document.querySelector('audio');
   const type = element.dataset.glassUi;
   const root = createRoot(element);
+  if (type === 'close-player') {
+    root.render(<GlassButton variant="glass" type="submit" aria-label="收起播放器"
+      icon={<svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round"/></svg>}/>);
+  }
   if (type === 'navigation') {
     const items = Array.from(element.querySelectorAll('nav a'), a => ({
       label:a.textContent, onSelect:() => window.location.assign(a.href)

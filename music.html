@@ -9,9 +9,9 @@
   <link rel="stylesheet" href="music-assets/player.css?v=8">
   <link rel="stylesheet" href="css/lens.css">
   <link rel="stylesheet" href="assets/ui/glass.css">
-  <script defer src="assets/ui/glass.js"></script>
+  <script defer src="assets/ui/glass.js?v=close-player"></script>
 <link rel="stylesheet" href="music-assets/lyric-view.css">
-<link rel="stylesheet" href="music-assets/library-layout.css?v=4">
+<link rel="stylesheet" href="music-assets/library-layout.css?v=5">
   <script defer src="js/languages.js"></script>
 </head>
 <body class="music-view">
@@ -70,7 +70,7 @@
   </div>
 
   
-<dialog id="full-player" aria-label="全屏音乐播放器"><form method="dialog" class="player-close-slot"><button type="submit" aria-label="收起播放器"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form></dialog>
+<dialog id="full-player" aria-label="全屏音乐播放器"><form method="dialog" class="player-close-slot" data-glass-ui="close-player"><button type="submit" aria-label="收起播放器"><svg aria-hidden="true" width="20" height="20" viewBox="0 0 24 24"><path d="m5 9 7 7 7-7" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button></form></dialog>
   <script src="music-assets/lyric-view.js?v=2"></script>
   <script src="music-assets/player.js?v=14"></script>
 </body>
