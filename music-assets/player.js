@@ -124,10 +124,12 @@ async function selectLocal(files) {
   }
 }
 function closePlayer() {
-  if (document.fullscreenElement === document.documentElement) document.exitFullscreen().catch(() => {});
-  if (popup.open) popup.close();
+  if (typeof popup.close === 'function' && popup.open) popup.close();
+  popup.removeAttribute('open');
+  document.body.classList.remove('player-open');
   expand.focus();
 }
+popup.querySelector('.emergency-close').onclick = closePlayer;
 expand.onclick = () => {
   if (!frame) {
     frame = document.createElement('iframe');
@@ -135,13 +137,12 @@ expand.onclick = () => {
     frame.src = 'music-assets/fullscreen/view.html?v=4';
     popup.append(frame);
   }
-  popup.showModal();
-  document.documentElement.requestFullscreen?.().catch(() => {});
+  if (popup.hasAttribute('open')) return;
+  try { popup.showModal(); } catch { popup.setAttribute('open',''); }
+  document.body.classList.add('player-open');
+  popup.querySelector('button').focus();
   frame.contentWindow.dispatchEvent(new Event('playeropen'));
 };
-document.addEventListener('fullscreenchange', () => {
-  if (!document.fullscreenElement && popup.open) closePlayer();
-});
 popup.addEventListener('cancel', event => {event.preventDefault(); closePlayer();});
 window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, lines:() => cues,
   title:() => document.querySelector('.current strong').textContent,
@@ -198,5 +199,8 @@ dock.addEventListener('click',event=>{
       break;
     }
   }
+});
+window.addEventListener('load', () => {
+  if (document.querySelector('[data-glass-ui="play"] button')) audio.hidden = true;
 });
 audio.addEventListener('ended',()=>{if(shuffle && !audio.loop)skipTrack(1);});

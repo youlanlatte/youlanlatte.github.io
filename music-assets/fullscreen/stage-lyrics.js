@@ -28,7 +28,8 @@ function createStageLyrics(viewport, audio, visible) {
   });
   function position(snap = false) {
     if (!visible() || !cues.length) return;
-    const next = cues.findLastIndex(([time]) => time <= audio.currentTime);
+    let next = cues.length - 1;
+    while (next >= 0 && cues[next][0] > audio.currentTime) next--;
     if (next === active && !snap) return;
     const nodes = [...stage.children];
     const heights = nodes.map(node => node.offsetHeight + 20);
@@ -41,7 +42,7 @@ function createStageLyrics(viewport, audio, visible) {
       node.style.transitionDuration = instant ? '0s' : '.7s';
       node.style.transitionDelay = instant ? '0s' : delay+'ms, 0ms, 0ms';
       node.style.transform = 'translateY('+y+'px)';
-      node.style.filter = 'blur('+Math.abs(distance)+'px)';
+      node.style.filter = 'blur('+Math.min(3,Math.abs(distance))+'px)';
       node.classList.toggle('active',i===next);
       y += heights[i];
     });
@@ -49,7 +50,7 @@ function createStageLyrics(viewport, audio, visible) {
   }
   audio.addEventListener('timeupdate',()=>position());
   audio.addEventListener('seeked',()=>position(true));
-  new ResizeObserver(()=>position(true)).observe(viewport);
+  if ('ResizeObserver' in window) new ResizeObserver(()=>position(true)).observe(viewport);
   return rows => {
     endBrowse();
     cues=rows; active=-2;

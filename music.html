@@ -12,6 +12,7 @@
   <script defer src="assets/ui/glass.js"></script>
 <link rel="stylesheet" href="music-assets/lyric-view.css">
 <link rel="stylesheet" href="music-assets/library-layout.css?v=2">
+  <script defer src="js/languages.js"></script>
 </head>
 <body class="music-view">
   <a class="skip-link" href="#content">跳到音乐播放器</a>
@@ -50,10 +51,10 @@
           <button class="dock-key" data-action="mute" aria-label="静音" aria-pressed="false">◖))</button>
           <div data-glass-ui="volume"></div>
         </div>
-        <audio id="audio" hidden preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/audio/haruhikage.mp3"></audio>
+
       </header>
       <div class="music-columns"><section class="page" id="songs">
-        <div class="library-heading"><span class="menu-slot" data-glass-ui="open-menu"></span><h1 class="playlists">音乐主页</h1></div>
+        <div class="library-heading"><span class="menu-slot" data-glass-ui="open-menu"></span><h1 class="playlists">音乐主页</h1><select class="language-picker" aria-label="语言 / Language / 言語"><option value="zh-CN">中文</option><option value="en">English</option><option value="ja">日本語</option></select></div>
         <h2>歌曲资料库</h2>
         <div class="cardContainer flex">
           <div id="song" data-track="haruhikage" data-title="春日影" data-artist="MyGO!!!!!" data-glass-ui="song"></div>
@@ -62,6 +63,7 @@
         <section class="recent-list" hidden><h2>最近播放</h2><div></div></section>
         <p id="no-results" hidden>没有找到匹配的歌曲。试试歌名或艺人名。</p>
         <p id="status" role="status"></p>
+        <audio id="audio" class="basic-player" controls preload="metadata" aria-label="春日影 · MyGO!!!!!" src="music-assets/audio/haruhikage.mp3"></audio>
         <a class="direct-play" href="music-assets/audio/haruhikage.mp3">直接打开当前音频 ↗</a>
       </section>
       <aside class="lyrics-panel"><h2>歌词</h2><div id="lyrics" class="timed-viewport" tabindex="0" aria-label="同步歌词">加载歌词…</div></aside></div>
@@ -69,7 +71,7 @@
   </div>
 
   
-<dialog id="full-player" aria-label="全屏音乐播放器"></dialog>
+<dialog id="full-player" aria-label="全屏音乐播放器"><button class="emergency-close" aria-label="收起播放器">×</button></dialog>
   <script src="music-assets/lyric-view.js?v=2"></script>
   <script src="music-assets/player.js?v=12"></script>
 </body>

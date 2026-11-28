@@ -47,3 +47,6 @@ body.dark-mode, body.music-view {
 .music-view .skip-link { position:fixed; top:8px; left:8px; z-index:100; transform:translateY(-160%); padding:8px 14px; border-radius:8px; background:#222; color:white; }
 .music-view .skip-link:focus { transform:none; }
 
+.profile-card .avatar { border-color:transparent; background:linear-gradient(135deg,#93d8ff,#c2a6ef 52%,#ffc39a) border-box; box-shadow:0 3px 12px #776ab12b; }
+.language-picker { font:inherit; font-size:.88rem; color:inherit; background:var(--card,#303039); border:1px solid #8888; border-radius:1em; padding:.35em .55em; max-width:100%; }
+@media(max-width:600px){ .topbar { flex-wrap:wrap; } .topbar .language-picker {margin-left:auto;} }

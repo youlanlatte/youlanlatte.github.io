@@ -3,7 +3,7 @@ const audio = player.audio;
 const $ = selector => document.querySelector(selector);
 const cover = $('.svgcontainer');
 const input = $('.audiofile');
-const paintLyrics = createStageLyrics($('.lyricscontainer'),audio,()=>parent.document.querySelector('#full-player').open);
+const paintLyrics = createStageLyrics($('.lyricscontainer'),audio,()=>parent.document.querySelector('#full-player').hasAttribute('open'));
 function metadata() {
   $('.name').textContent = player.title();
   const image = 'url("' + player.art() + '")';
@@ -18,7 +18,7 @@ function time(value) {
   return Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');
 }
 function update() {
-  if (!parent.document.querySelector('#full-player').open) return;
+  if (!parent.document.querySelector('#full-player').hasAttribute('open')) return;
   const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
   $('.start').textContent = time(audio.currentTime);
   $('.end').textContent = '-'+time(duration-audio.currentTime);
@@ -35,5 +35,5 @@ window.addEventListener('keydown',e=>{if(e.key==='Escape')player.closePlayer();}
 audio.addEventListener('trackchange',metadata);
 audio.addEventListener('lyricschange',drawLyrics);
 for (const event of ['play','pause','timeupdate','loadedmetadata','seeked','ended']) audio.addEventListener(event,update);
-window.addEventListener('playeropen',()=>{metadata();drawLyrics();});
-metadata();drawLyrics();
+window.addEventListener('playeropen',()=>{metadata();drawLyrics();update();});
+metadata();drawLyrics();update();

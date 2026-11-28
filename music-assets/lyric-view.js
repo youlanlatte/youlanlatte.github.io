@@ -10,9 +10,9 @@ function createLyricView(viewport, audio, visible = () => true) {
     viewport.scrollTop = current.offsetTop - viewport.clientHeight*.45 + current.offsetHeight/2;
     const shift = viewport.scrollTop-previous;
     for (const [i,row] of Array.from(lines.children).entries()) {
-      row.getAnimations().forEach(animation => animation.cancel());
+      (row.getAnimations ? row.getAnimations() : []).forEach(animation => animation.cancel());
       const distance = i-active;
-      if (!animate || !shift || Math.abs(distance)>8 || matchMedia('(prefers-reduced-motion: reduce)').matches) continue;
+      if (!row.animate || !animate || !shift || Math.abs(distance)>8 || matchMedia('(prefers-reduced-motion: reduce)').matches) continue;
       row.animate([{transform:'translateY('+shift+'px)'},{transform:'translateY(0)'}],{
         duration:620, delay:Math.min(7,Math.max(0,distance+1))*60,
         easing:'cubic-bezier(.19,1,.22,1)',fill:'backwards'
@@ -21,7 +21,8 @@ function createLyricView(viewport, audio, visible = () => true) {
   }
   function update(force = false) {
     if (!visible()) return;
-    const next = cues.findLastIndex(([time]) => time <= audio.currentTime);
+    let next = cues.length - 1;
+    while (next >= 0 && cues[next][0] > audio.currentTime) next--;
     if (!force && next === active) return;
     const adjacent = active >= -1 && Math.abs(next-active) <= 2;
     active = next;
@@ -39,7 +40,7 @@ function createLyricView(viewport, audio, visible = () => true) {
   function browse() {
     if (!resume) {
       viewport.classList.add('browsing');
-      lines.getAnimations({subtree:true}).forEach(animation => animation.cancel());
+      (lines.getAnimations ? lines.getAnimations({subtree:true}) : []).forEach(animation => animation.cancel());
     }
     clearTimeout(resume);
     resume = setTimeout(() => { endBrowse(); center(true); },4000);
@@ -49,7 +50,7 @@ function createLyricView(viewport, audio, visible = () => true) {
   viewport.addEventListener('keydown',e=>{if (['ArrowUp','ArrowDown','PageUp','PageDown','Home','End'].includes(e.key)) browse();});
   audio.addEventListener('timeupdate',()=>update());
   audio.addEventListener('seeked',()=>{endBrowse();update(true);});
-  new ResizeObserver(()=>update(true)).observe(viewport);
+  if ('ResizeObserver' in window) new ResizeObserver(()=>update(true)).observe(viewport);
   return (next,message='暂无同步歌词') => {
     endBrowse();active=-2;cues=next;
     lines.replaceChildren(...next.map(([,text])=>{
