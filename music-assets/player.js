@@ -129,7 +129,7 @@ function closePlayer() {
   document.body.classList.remove('player-open');
   expand.focus();
 }
-popup.querySelector('.emergency-close').onclick = closePlayer;
+popup.querySelector('.player-close-slot').onclick = closePlayer;
 expand.onclick = () => {
   if (!frame) {
     frame = document.createElement('iframe');

@@ -45,7 +45,7 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
 .archive th { text-align:start; }
 #roster-form label { max-width:32em; line-height:1.7; }
 @media(max-width:720px) {
-  .container { margin-block:24px; padding-inline:14px; gap:16px; }
+  #home > .container { margin-block:24px; padding-inline:14px; gap:16px; }
   .container > .left-panel { grid-row:1; }
   .container > .right-panel { gap:16px; }
   #intro,#projects { padding:22px 18px; }

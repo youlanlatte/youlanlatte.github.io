@@ -49,7 +49,9 @@
 #full-player:not([open]) {display:none;}
 #full-player[open] {display:block;z-index:1000;height:100vh;height:100dvh;}
 body.player-open {overflow:hidden;}
-.emergency-close {position:absolute;top:10px;left:12px;z-index:2;border:0;border-radius:50%;width:44px;height:44px;background:#25242add;color:white;font:26px/1 system-ui;}
+.player-close-slot {position:absolute;top:10px;left:12px;top:max(10px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));z-index:2;color:white;}
+.player-close-slot button {width:44px;height:44px;padding:0;border-radius:50%;font-size:24px;}
+.player-close-slot button:not(.lg-button) {background:#36343dcc;}
 .library-heading .language-picker {margin-left:auto;}
 .basic-player {max-width:100%;}
 @media(max-width:740px){

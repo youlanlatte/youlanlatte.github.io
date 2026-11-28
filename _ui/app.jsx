@@ -111,7 +111,7 @@ function PlayButton({audio, track}) {
   const toggle = () => document.dispatchEvent(new CustomEvent('toggle-playback',{detail:track?.track}));
   const label = (paused || (track && track.track !== current) ? '播放' : '暂停') + (track?.title || audio.getAttribute('aria-label').split(' · ')[0]);
   if (track) return <GlassButton className="song-tile" aria-label={label} onClick={toggle}>
-    <span className="art"><img src={`music-assets/${track.track}.jpg`} alt=""/></span>
+    <span className="art"><img src={`music-assets/covers/${track.track}.jpg`} alt=""/></span>
     <strong className="cardTitle">{track.title}</strong><span className="cardDesc">{track.artist}</span>
   </GlassButton>;
   return <GlassButton size="sm" aria-label={label} icon={paused ? '▶' : 'Ⅱ'} onClick={toggle}/>;
@@ -153,6 +153,9 @@ for (const element of document.querySelectorAll('[data-glass-ui]')) {
   const audio = document.querySelector('audio');
   const type = element.dataset.glassUi;
   const root = createRoot(element);
+  if (type === 'close-player') {
+    root.render(<GlassButton variant="glass" icon="×" aria-label="收起播放器" />);
+  }
   if (type === 'navigation') {
     const items = Array.from(element.querySelectorAll('nav a'), a => ({
       label:a.textContent, onSelect:() => window.location.assign(a.href)
