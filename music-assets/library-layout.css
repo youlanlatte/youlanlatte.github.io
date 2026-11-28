@@ -51,7 +51,18 @@
 body.player-open {overflow:hidden;}
 .player-close-slot {position:absolute;top:10px;left:12px;top:max(10px,env(safe-area-inset-top));left:max(12px,env(safe-area-inset-left));z-index:2;color:white;}
 .player-close-slot button {width:44px;height:44px;padding:0;border-radius:50%;font-size:24px;}
-.player-close-slot button:not(.lg-button) {background:#36343dcc;}
+.player-close-slot button {
+ display:grid;place-items:center;touch-action:manipulation;cursor:pointer;color:white;
+ background:linear-gradient(145deg,#ffffff30,transparent 60%),#36343c99;
+ border:1px solid #ffffff66;box-shadow:inset 0 1px 2px #ffffff66,0 3px 12px #0004;
+ -webkit-backdrop-filter:blur(12px) saturate(150%);backdrop-filter:blur(12px) saturate(150%);
+}
+@media (prefers-reduced-motion:no-preference) {
+ .player-close-slot button:active {transform:scale(1.05,.95);}
+}
+.music-view .expand-art {display:grid;place-items:center;position:relative;z-index:2;min-width:44px;min-height:44px;touch-action:manipulation;-webkit-touch-callout:none;}
+.expand-art img {pointer-events:none;}
+.music-view .header .current {-webkit-backdrop-filter:none;}
 .library-heading .language-picker {margin-left:auto;}
 .basic-player {max-width:100%;}
 @media(max-width:740px){

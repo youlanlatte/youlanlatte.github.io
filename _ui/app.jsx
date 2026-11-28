@@ -153,9 +153,6 @@ for (const element of document.querySelectorAll('[data-glass-ui]')) {
   const audio = document.querySelector('audio');
   const type = element.dataset.glassUi;
   const root = createRoot(element);
-  if (type === 'close-player') {
-    root.render(<GlassButton variant="glass" icon="×" aria-label="收起播放器" />);
-  }
   if (type === 'navigation') {
     const items = Array.from(element.querySelectorAll('nav a'), a => ({
       label:a.textContent, onSelect:() => window.location.assign(a.href)

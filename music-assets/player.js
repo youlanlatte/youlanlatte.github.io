@@ -130,19 +130,34 @@ function closePlayer() {
   expand.focus();
 }
 popup.querySelector('.player-close-slot').onclick = closePlayer;
-expand.onclick = () => {
+function openPlayer() {
+  if (popup.hasAttribute('open')) return;
   if (!frame) {
     frame = document.createElement('iframe');
     frame.title = '全屏播放器';
     frame.src = 'music-assets/fullscreen/view.html?v=4';
     popup.append(frame);
   }
-  if (popup.hasAttribute('open')) return;
   try { popup.showModal(); } catch { popup.setAttribute('open',''); }
   document.body.classList.add('player-open');
   popup.querySelector('button').focus();
   frame.contentWindow.dispatchEvent(new Event('playeropen'));
-};
+}
+expand.addEventListener('click', openPlayer);
+let coverTouch;
+expand.addEventListener('touchstart', event => {
+  coverTouch = event.touches.length === 1 ? event.touches[0] : null;
+}, {passive:true});
+expand.addEventListener('touchcancel', () => { coverTouch = null; });
+expand.addEventListener('touchend', event => {
+  const start = coverTouch;
+  coverTouch = null;
+  const end = event.changedTouches[0];
+  if (!start || start.identifier !== end.identifier || event.touches.length ||
+      Math.hypot(start.clientX-end.clientX, start.clientY-end.clientY) > 10) return;
+  if (event.cancelable) event.preventDefault();
+  openPlayer();
+}, {passive:false});
 popup.addEventListener('cancel', event => {event.preventDefault(); closePlayer();});
 window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, skipTrack, lines:() => cues,
   title:() => document.querySelector('.current strong').textContent,
