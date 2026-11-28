@@ -40,3 +40,10 @@ body.dark-mode, body.music-view {
   body:not(.login) { --lens:#faf8fc; --control:#f6f2f8; }
   body.dark-mode,body.music-view { --lens:#24212e; --control:#403846; }
 }
+:where(a, button, input, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+.music-view .skip-link { position:fixed; top:8px; left:8px; z-index:100; transform:translateY(-160%); padding:8px 14px; border-radius:8px; background:#222; color:white; }
+.music-view .skip-link:focus { transform:none; }
+

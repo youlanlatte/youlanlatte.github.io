@@ -8,6 +8,10 @@
 | v2.0 | [e8b9727b](https://github.com/youlanlatte/youlanlatte.github.io/tree/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/e8b9727b47b9ac0f4ecda33c6664a2acc1b87aee.zip) |
 | v3.0 | [8e928fad](https://github.com/youlanlatte/youlanlatte.github.io/tree/8e928fad22cf0c0896eb066635f4a07f1c711ba4) | [下载 ZIP](https://github.com/youlanlatte/youlanlatte.github.io/archive/8e928fad22cf0c0896eb066635f4a07f1c711ba4.zip) |
 
+## v26.11.28
+
+全屏播放器的进度条缩短 10%，专辑封面放大 10%。滚轮浏览歌词时，普通和全屏模式都会清晰显示文字。站内锚点会避开吸顶导航，音乐页新增键盘直达播放器入口。[查看本版发布记录](https://github.com/youlanlatte/youlanlatte.github.io/releases/tag/v26.11.28)
+
 ## v26.11.26
 
 手机打开主页时，肖像名片排在最前面。自我介绍标题进入视野时逐字显示，开启「减少动态效果」后会直接显示整句。[查看本版发布记录](https://github.com/youlanlatte/youlanlatte.github.io/releases/tag/v26.11.26)

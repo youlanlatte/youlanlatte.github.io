@@ -1,3 +1,9 @@
+const topbar = document.querySelector('.topbar');
+if (topbar && 'ResizeObserver' in window) {
+  new ResizeObserver(() => {
+    document.documentElement.style.scrollPaddingTop = (topbar.offsetHeight + 8) + 'px';
+  }).observe(topbar);
+}
 const systemTheme = matchMedia('(prefers-color-scheme: dark)');
 let preference = null;
 try {
