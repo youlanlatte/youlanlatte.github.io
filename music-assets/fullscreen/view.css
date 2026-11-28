@@ -469,3 +469,5 @@ body::before { content:""; position:fixed; inset:-10%; z-index:-1; background:li
  .lyricscontainer .item.line {filter:none!important;transition:none;}
  body::before {filter:none;}
 }
+.conbox {gap:clamp(10px,3vw,28px);}
+.track-step {color:inherit;background:transparent;border:0;cursor:pointer;min-width:44px;min-height:44px;font-size:17px;}

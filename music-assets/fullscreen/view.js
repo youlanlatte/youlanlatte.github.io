@@ -29,6 +29,9 @@ function update() {
 cover.onclick = () => input.click();
 cover.onkeydown = e => {if (e.key==='Enter'||e.key===' ') {e.preventDefault();input.click();}};
 input.onchange = () => {player.selectLocal([...input.files]);input.value='';};
+document.querySelectorAll('.track-step').forEach(button => {
+  button.onclick = () => player.skipTrack(Number(button.dataset.step));
+});
 $('.controls').onclick = player.togglePlayback;
 $('.collapse').onclick = player.closePlayer;
 window.addEventListener('keydown',e=>{if(e.key==='Escape')player.closePlayer();});

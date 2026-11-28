@@ -14,3 +14,8 @@
 .timed-lines .line span { display:block; }
 .timed-lines .line span + span { font-size:.7em; font-weight:500; }
 @media(prefers-reduced-motion:reduce){ .timed-viewport .timed-lines .line {transition:none;} }
+/* Avoid stacking WebKit's scroll mask and animated blur layers on iOS. */
+@supports (-webkit-touch-callout:none) {
+ .timed-viewport, .lyricscontainer.timed-viewport { -webkit-mask-image:none; mask-image:none; }
+ .timed-viewport .timed-lines .line, .lyricscontainer .item.line { filter:none!important; }
+}

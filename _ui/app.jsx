@@ -16,7 +16,7 @@ function HeaderTools() {
   return <>
     <form className="bing-search" action="https://www.bing.com/search" target="_blank" rel="noopener">
       <GlassInput aria-label="搜索 Bing" type="search" name="q" placeholder="搜索 Bing" required value={query} onChange={e => setQuery(e.target.value)}/>
-      <GlassButton size="sm" type="submit">搜索</GlassButton>
+      <GlassButton size="sm" type="submit" aria-label="搜索" icon={<svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="10" cy="10" r="6"/><path d="m15 15 6 6"/></svg>}>搜索</GlassButton>
     </form>
     <GlassSwitch aria-label="深色主题" checked={dark} onChange={value => document.dispatchEvent(new CustomEvent('choose-theme', {detail:value}))}/>
   </>;

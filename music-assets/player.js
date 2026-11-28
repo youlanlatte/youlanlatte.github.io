@@ -144,7 +144,7 @@ expand.onclick = () => {
   frame.contentWindow.dispatchEvent(new Event('playeropen'));
 };
 popup.addEventListener('cancel', event => {event.preventDefault(); closePlayer();});
-window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, lines:() => cues,
+window.fullPlayer = {audio, togglePlayback, selectLocal, closePlayer, skipTrack, lines:() => cues,
   title:() => document.querySelector('.current strong').textContent,
   art:() => document.querySelector('.mini-art').src};
 const recentPanel = document.querySelector('.recent-list');

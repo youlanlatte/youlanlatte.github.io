@@ -1,7 +1,6 @@
 .music-view { background:#202020; --rail:clamp(170px,15vw,252px); --words:clamp(245px,20vw,365px); }
 .music-view .container {display:block; min-height:100dvh;}
 .music-view .sidebar { position:fixed; inset:0 auto 0 0; height:auto; width:var(--rail); background:#262626; border-width:0 1px 0 0; }
-.sidebar-credit {position:absolute;bottom:20px;left:15px;font-size:11px;color:#bbb;}
 .music-view .main {margin-left:var(--rail); width:auto; height:auto; min-height:100dvh; background:#202020;}
 .music-view .music-columns {display:grid;grid-template-columns:minmax(0,1fr) var(--words);padding:0;gap:0;}
 .music-view .page {padding:clamp(20px,3vw,48px);padding-bottom:130px;max-height:none;overflow:visible;}

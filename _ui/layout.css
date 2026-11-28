@@ -51,3 +51,14 @@ html, body, body :where(*) { font-family:system-ui,sans-serif !important; }
   #intro,#projects { padding:22px 18px; }
   .archive { margin-inline:12px; padding:20px 14px; }
 }
+@media(max-width:600px) {
+ .topbar {flex-wrap:nowrap;gap:4px;padding-inline:6px;}
+ .topbar .site-title {min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding-inline:2px;}
+ .topbar .language-picker {margin:0;flex:none;max-width:5.5em;padding-inline:2px;}
+ .topbar .topbar-right {flex-wrap:nowrap;min-width:0;gap:4px;flex:0 1 auto;}
+ .topbar .bing-search {gap:2px;}
+ .topbar .bing-search > :first-child {min-width:0;width:clamp(42px,12vw,72px);}
+ .topbar .bing-search input {min-width:0;width:100%;}
+ .topbar .bing-search button .lg-button__label {display:none;}
+ .topbar .bing-search button {flex:none;padding-inline:6px;}
+}
